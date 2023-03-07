@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Order {
+    private Long orderID;
     private LinkedList<Food> food;
     private Boolean status;
     private Double price;
