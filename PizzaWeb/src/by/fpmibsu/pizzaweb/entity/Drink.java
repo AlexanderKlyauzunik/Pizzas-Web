@@ -2,7 +2,7 @@ package by.fpmibsu.pizzaweb.entity;
 
 import java.util.Objects;
 
-public class Drink {
+public class Drink extends Food {
     private Long drinkID;
     private String name;
     private Double capacity;
