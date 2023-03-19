@@ -1,4 +1,4 @@
-package by.fpmibsu.pizzaweb.entity;
+package PizzaWeb.src.by.fpmibsu.pizzaweb.entity;
 
 import java.util.Objects;
 
@@ -19,7 +19,7 @@ public class Drink extends Food {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        by.fpmibsu.pizzaweb.entity.Drink drink = (by.fpmibsu.pizzaweb.entity.Drink) o;
+       Drink drink = (Drink) o;
         return Objects.equals(drinkID, drink.drinkID) && Objects.equals(name, drink.name) && Objects.equals(capacity, drink.capacity) && Objects.equals(price, drink.price);
     }
 

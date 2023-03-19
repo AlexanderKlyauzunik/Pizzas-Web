@@ -1,4 +1,4 @@
-package by.fpmibsu.pizzaweb.entity;
+package PizzaWeb.src.by.fpmibsu.pizzaweb.entity;
 
 import java.util.Date;
 import java.util.LinkedList;
