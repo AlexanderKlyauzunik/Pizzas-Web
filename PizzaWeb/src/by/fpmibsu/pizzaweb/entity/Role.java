@@ -1,5 +1,6 @@
 package PizzaWeb.src.by.fpmibsu.pizzaweb.entity;
 
+
 public class Role {
 	private String role;
 

@@ -19,7 +19,8 @@ public class Drink extends Food {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-       Drink drink = (Drink) o;
+       Drink drink = (
+               Drink) o;
         return Objects.equals(drinkID, drink.drinkID) && Objects.equals(name, drink.name) && Objects.equals(capacity, drink.capacity) && Objects.equals(price, drink.price);
     }
 

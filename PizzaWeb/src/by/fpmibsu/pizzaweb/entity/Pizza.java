@@ -1,5 +1,6 @@
 package PizzaWeb.src.by.fpmibsu.pizzaweb.entity;
 
+
 import java.util.Objects;
 
 public class Pizza extends Food {
