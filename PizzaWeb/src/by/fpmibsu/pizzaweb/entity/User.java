@@ -1,6 +1,5 @@
 package PizzaWeb.src.by.fpmibsu.pizzaweb.entity;
 
-
 import java.util.LinkedList;
 import java.util.Objects;
 
