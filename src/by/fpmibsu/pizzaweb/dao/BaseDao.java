@@ -1,4 +1,4 @@
 package src.by.fpmibsu.pizzaweb.dao;
-import src.by.fpmibsu.pizzaweb.entity;
-public interface BaseDao <K, T extends {
+import src.by.fpmibsu.pizzaweb.entity.Entity;
+public interface BaseDao <K, T extends Entity>{
 }
