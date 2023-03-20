@@ -5,8 +5,12 @@ import java.util.Objects;
 public class Address extends Entity{
     private String street;
     private Integer houseNumber;
+
     private Integer entrance;
     private Integer flatNumber;
+
+    public Address() {
+    }
 
     public Address(Long addressID, String street, Integer houseNumber, Integer entrance, Integer flatNumber) {
         super(addressID);

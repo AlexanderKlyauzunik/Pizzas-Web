@@ -11,6 +11,7 @@ public abstract class Entity {
         this.id = id;
     }
 
+    public Entity () {}
     public Entity(Long id) {
         this.id = id;
     }
