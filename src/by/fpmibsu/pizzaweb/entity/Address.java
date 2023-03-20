@@ -2,15 +2,14 @@ package src.by.fpmibsu.pizzaweb.entity;
 
 import java.util.Objects;
 
-public class Address {
-    private Long addressID;
+public class Address extends Entity{
     private String street;
     private Integer houseNumber;
     private Integer entrance;
     private Integer flatNumber;
 
     public Address(Long addressID, String street, Integer houseNumber, Integer entrance, Integer flatNumber) {
-        this.addressID = addressID;
+        super(addressID);
         this.street = street;
         this.houseNumber = houseNumber;
         this.entrance = entrance;
@@ -18,11 +17,11 @@ public class Address {
     }
 
     public Long getAddressID() {
-        return this.addressID;
+        return this.getId();
     }
 
     public void setAddressID(Long addressID) {
-        this.addressID = addressID;
+        this.setId(addressID);
     }
 
     public String getStreet() {
@@ -57,22 +56,21 @@ public class Address {
         this.flatNumber = flatNumber;
     }
 
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        } else if (o != null && this.getClass() == o.getClass()) {
-            Address address = (Address)o;
-            return Objects.equals(this.addressID, address.addressID) && Objects.equals(this.street, address.street) && Objects.equals(this.houseNumber, address.houseNumber) && Objects.equals(this.entrance, address.entrance) && Objects.equals(this.flatNumber, address.flatNumber);
-        } else {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(street, address.street) && Objects.equals(houseNumber, address.houseNumber) && Objects.equals(entrance, address.entrance) && Objects.equals(flatNumber, address.flatNumber);
     }
 
-    public int hashCode() {
-        return Objects.hash(new Object[]{this.addressID, this.street, this.houseNumber, this.entrance, this.flatNumber});
-    }
-
+    @Override
     public String toString() {
-        return "Address{addressID=" + this.addressID + ", street='" + this.street + "', houseNumber=" + this.houseNumber + ", entrance=" + this.entrance + ", flatNumber=" + this.flatNumber + "}";
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", houseNumber=" + houseNumber +
+                ", entrance=" + entrance +
+                ", flatNumber=" + flatNumber +
+                '}';
     }
 }

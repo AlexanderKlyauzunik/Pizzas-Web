@@ -3,8 +3,8 @@ package src.by.fpmibsu.pizzaweb.entity;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class User {
-    private Long userId;
+public class User extends Entity{
+
 
     private LinkedList<Address> addresses;
 
@@ -23,7 +23,7 @@ public class User {
     private Role role;
 
     public User(Long userId, LinkedList<Address> addresses, Order order, String firstName, String lastName, String password, String email, String telephone, Role role) {
-        this.userId = userId;
+        super(userId);
         this.addresses = addresses;
         this.order = order;
         this.firstName = firstName;
@@ -35,11 +35,11 @@ public class User {
     }
 
     public Long getUserId() {
-        return userId;
+        return this.getId();
     }
 
     public void setUserId(Long userId) {
-        this.userId = userId;
+        this.setId(userId);
     }
 
     public LinkedList<Address> getAddresses() {
@@ -106,24 +106,24 @@ public class User {
         this.role = role;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(addresses, user.addresses) && Objects.equals(order, user.order) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(Email, user.Email) && Objects.equals(Telephone, user.Telephone) && Objects.equals(role, user.role);
+        return Objects.equals(addresses, user.addresses) && Objects.equals(order, user.order) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(Email, user.Email) && Objects.equals(Telephone, user.Telephone) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, addresses, order, firstName, lastName, password, Email, Telephone, role);
+        return Objects.hash(addresses, order, firstName, lastName, password, Email, Telephone, role);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
-                ", addresses=" + addresses +
+                "addresses=" + addresses +
                 ", order=" + order +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

@@ -1,14 +1,13 @@
 package src.by.fpmibsu.pizzaweb.entity;
 import java.util.Objects;
 
-public class Drink extends Food {
-    private Long drinkID;
+public class Drink extends Entity{
     private String name;
     private Double capacity;
     private Double price;
 
     public Drink(Long drinkID, String name, Double capacity, Double price) {
-        this.drinkID = drinkID;
+        super(drinkID);
         this.name = name;
         this.capacity = capacity;
         this.price = price;
@@ -18,32 +17,16 @@ public class Drink extends Food {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Drink drink = (
-                Drink) o;
-        return Objects.equals(drinkID, drink.drinkID) && Objects.equals(name, drink.name) && Objects.equals(capacity, drink.capacity) && Objects.equals(price, drink.price);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(drinkID, name, capacity, price);
-    }
-
-    @Override
-    public String toString() {
-        return "Drink{" +
-                "drinkID=" + drinkID +
-                ", name='" + name + '\'' +
-                ", capacity=" + capacity +
-                ", price=" + price +
-                '}';
+        Drink drink = (Drink) o;
+        return Objects.equals(name, drink.name) && Objects.equals(capacity, drink.capacity) && Objects.equals(price, drink.price);
     }
 
     public Long getDrinkID() {
-        return drinkID;
+        return getId();
     }
 
     public void setDrinkID(Long drinkID) {
-        this.drinkID = drinkID;
+        setId(drinkID);
     }
 
     public String getName() {
@@ -68,5 +51,14 @@ public class Drink extends Food {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "name='" + name + '\'' +
+                ", capacity=" + capacity +
+                ", price=" + price +
+                '}';
     }
 }

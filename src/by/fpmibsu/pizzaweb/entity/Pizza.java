@@ -2,8 +2,7 @@ package src.by.fpmibsu.pizzaweb.entity;
 
 import java.util.Objects;
 
-public class Pizza extends Food {
-    private Long pizzaId;
+public class Pizza extends Entity{
     private String name;
     private String ingredients;
     private String size;
@@ -11,7 +10,7 @@ public class Pizza extends Food {
     private Double price;
 
     public Pizza(Long pizzaId, String name, String ingredients, String size, Boolean doughType, Double price) {
-        this.pizzaId = pizzaId;
+        super(pizzaId);
         this.name = name;
         this.ingredients = ingredients;
         this.size = size;
@@ -19,37 +18,12 @@ public class Pizza extends Food {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pizza pizza = (Pizza) o;
-        return Objects.equals(pizzaId, pizza.pizzaId) && Objects.equals(name, pizza.name) && Objects.equals(ingredients, pizza.ingredients) && Objects.equals(size, pizza.size) && Objects.equals(doughType, pizza.doughType) && Objects.equals(price, pizza.price);
-    }
-
-    @Override
-    public String toString() {
-        return "Pizza{" +
-                "pizzaId=" + pizzaId +
-                ", name='" + name + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", size='" + size + '\'' +
-                ", doughType=" + doughType +
-                ", price=" + price +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pizzaId, name, ingredients, size, doughType, price);
-    }
-
     public Long getPizzaId() {
-        return pizzaId;
+        return this.getId();
     }
 
     public void setPizzaId(Long pizzaId) {
-        this.pizzaId = pizzaId;
+        this.setId(pizzaId);
     }
 
     public String getName() {
@@ -90,5 +64,29 @@ public class Pizza extends Food {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pizza pizza = (Pizza) o;
+        return Objects.equals(name, pizza.name) && Objects.equals(ingredients, pizza.ingredients) && Objects.equals(size, pizza.size) && Objects.equals(doughType, pizza.doughType) && Objects.equals(price, pizza.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, ingredients, size, doughType, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "name='" + name + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", size='" + size + '\'' +
+                ", doughType=" + doughType +
+                ", price=" + price +
+                '}';
     }
 }

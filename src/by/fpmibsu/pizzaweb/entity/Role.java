@@ -1,13 +1,14 @@
 package src.by.fpmibsu.pizzaweb.entity;
 
-public class Role {
+public class Role extends Entity{
     private String role;
 
     public String getRole() {
         return role;
     }
 
-    public Role(String role) {
+    public Role(Long roleID, String role) {
+        super(roleID);
         this.role = role;
     }
 

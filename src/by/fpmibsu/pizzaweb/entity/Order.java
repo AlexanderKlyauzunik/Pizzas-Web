@@ -4,15 +4,15 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Order {
-    private Long orderID;
-    private LinkedList<Food> food;
+public class Order extends Entity{
+    private LinkedList<Entity> food;
     private Boolean status;
     private Double price;
     private Date deliveryDate;
     private String paymentMethod;
 
-    public Order(LinkedList<Food> food, Boolean status, Double price, Date deliveryDate, String paymentMethod) {
+    public Order(Long orderID,LinkedList<Entity> food, Boolean status, Double price, Date deliveryDate, String paymentMethod) {
+        super(orderID);
         this.food = food;
         this.status = status;
         this.price = price;
@@ -20,11 +20,11 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public LinkedList<Food> getFood() {
+    public LinkedList<Entity> getFood() {
         return food;
     }
 
-    public void setFood(LinkedList<Food> food) {
+    public void setFood(LinkedList<Entity> food) {
         this.food = food;
     }
 

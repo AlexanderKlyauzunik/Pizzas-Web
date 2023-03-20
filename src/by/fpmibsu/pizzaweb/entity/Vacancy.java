@@ -3,15 +3,15 @@ package src.by.fpmibsu.pizzaweb.entity;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Vacancy {
-    private Long vacancyID;
+public class Vacancy extends Entity{
+
     private LinkedList<User> user;
     private Double salary;
     private Integer trial;
     private String description;
 
     public Vacancy(Long vacancyID, LinkedList<User> user, Double salary, Integer trial, String description) {
-        this.vacancyID = vacancyID;
+        super(vacancyID);
         this.user = user;
         this.salary = salary;
         this.trial = trial;
@@ -19,11 +19,11 @@ public class Vacancy {
     }
 
     public Long getVacancyID() {
-        return vacancyID;
+        return this.getId();
     }
 
     public void setVacancyID(Long vacancyID) {
-        this.vacancyID = vacancyID;
+        this.setId(vacancyID);
     }
 
     public LinkedList<User> getUser() {
@@ -63,19 +63,18 @@ public class Vacancy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vacancy vacancy = (Vacancy) o;
-        return Objects.equals(vacancyID, vacancy.vacancyID) && Objects.equals(user, vacancy.user) && Objects.equals(salary, vacancy.salary) && Objects.equals(trial, vacancy.trial) && Objects.equals(description, vacancy.description);
+        return Objects.equals(user, vacancy.user) && Objects.equals(salary, vacancy.salary) && Objects.equals(trial, vacancy.trial) && Objects.equals(description, vacancy.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vacancyID, user, salary, trial, description);
+        return Objects.hash(user, salary, trial, description);
     }
 
     @Override
     public String toString() {
         return "Vacancy{" +
-                "vacancyID=" + vacancyID +
-                ", user=" + user +
+                "user=" + user +
                 ", salary=" + salary +
                 ", trial=" + trial +
                 ", description='" + description + '\'' +
