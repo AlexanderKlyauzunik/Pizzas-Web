@@ -12,13 +12,52 @@ import java.util.List;
 public class AddressService extends Util implements AddressDao {
      Connection connection = getConnection();
 
-    private static final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Address\"(\n" +
-            "\t\"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\")\n" +
+    private static final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Address\"(\"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\")\n" +
             "\tVALUES (?, ?, ?, ?, ?);";
-    private static final String SQL_SELECT_ALL = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\"\n" +
-            "\tFROM public.\"Address\";";
+    private static final String SQL_SELECT_ALL = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\";";
+
+    private static final String SQL_SELECT_BY_ID = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\" \n" +
+            "WHERE \"AddressID\" = ?;";
+
+    private static final String SQL_UPDATE = "UPDATE public.\"Address\"\n" +
+            "\tSET \"Street\"=?, \"Entrance\"=?, \"HouseNumber\"=?, \"FlatNumber\"=?\n" +
+            "\tWHERE \"AddressID\"=?;";
+
+    private static final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Address\"\n" +
+            "\tWHERE \"AddressID\" = ?;";
+
+    private static final String SQL_DELETE_BY_STREET = "DELETE FROM public.\"Address\"\n" +
+            "\tWHERE \"Street\" = ?;";
+    private static final String SQL_SELECT_BY_STREET = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\" \n" +
+            "WHERE \"Street\" = ?;";
+
     public List<Address> findAllByStreet(String pattern) {
-        return null;
+        List<Address> addressList = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(SQL_SELECT_BY_STREET);
+            preparedStatement.setString(1,pattern);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Address address = new Address();
+                address.setAddressID(resultSet.getLong("AddressID"));
+                address.setStreet(resultSet.getString("Street"));
+                address.setEntrance(resultSet.getInt("Entrance"));
+                address.setHouseNumber(resultSet.getInt("HouseNumber"));
+                address.setFlatNumber(resultSet.getInt("FlatNumber"));
+
+                addressList.add(address);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return addressList;
     }
 
     @Override
@@ -53,16 +92,70 @@ public class AddressService extends Util implements AddressDao {
 
     @Override
     public Address findEntityById(Long id) {
-        return null;
+        PreparedStatement preparedStatement = null;
+        Address address = new Address();
+        try {
+            preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
+            preparedStatement.setLong(1,id);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            address.setId(resultSet.getLong("AddressID"));
+            address.setStreet(resultSet.getString("Street"));
+            address.setEntrance(resultSet.getInt("Entrance"));
+            address.setHouseNumber(resultSet.getInt("HouseNumber"));
+            address.setFlatNumber(resultSet.getInt("FlatNumber"));
+
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return address;
     }
 
     @Override
     public boolean delete(Address address) {
+        PreparedStatement preparedStatement = null;
+
+        try{
+            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_STREET);
+            preparedStatement.setString(1,address.getStreet());
+
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
         return false;
     }
 
+
     @Override
     public boolean delete(Long id) {
+        PreparedStatement preparedStatement = null;
+
+        try{
+            preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
+            preparedStatement.setLong(1,id);
+
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
         return false;
     }
 
@@ -93,6 +186,25 @@ public class AddressService extends Util implements AddressDao {
 
     @Override
     public void update(Address address) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(SQL_UPDATE);
+
+            preparedStatement.setString(1,address.getStreet());
+            preparedStatement.setInt(2,address.getEntrance());
+            preparedStatement.setInt(3,address.getFlatNumber());
+            preparedStatement.setInt(4,address.getHouseNumber());
+            preparedStatement.setLong(5,address.getAddressID());
+
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
 
     }
 }
