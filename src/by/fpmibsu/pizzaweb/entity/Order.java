@@ -7,15 +7,13 @@ import java.util.Objects;
 public class Order extends Entity{
     private LinkedList<Entity> food;
     private Boolean status;
-    private Double price;
     private Date deliveryDate;
     private String paymentMethod;
 
-    public Order(Long orderID,LinkedList<Entity> food, Boolean status, Double price, Date deliveryDate, String paymentMethod) {
+    public Order(Long orderID,LinkedList<Entity> food, Boolean status, Date deliveryDate, String paymentMethod) {
         super(orderID);
         this.food = food;
         this.status = status;
-        this.price = price;
         this.deliveryDate = deliveryDate;
         this.paymentMethod = paymentMethod;
     }
@@ -34,14 +32,6 @@ public class Order extends Entity{
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Date getDeliveryDate() {
@@ -65,12 +55,12 @@ public class Order extends Entity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(food, order.food) && Objects.equals(status, order.status) && Objects.equals(price, order.price) && Objects.equals(deliveryDate, order.deliveryDate) && Objects.equals(paymentMethod, order.paymentMethod);
+        return Objects.equals(food, order.food) && Objects.equals(status, order.status)  && Objects.equals(deliveryDate, order.deliveryDate) && Objects.equals(paymentMethod, order.paymentMethod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(food, status, price, deliveryDate, paymentMethod);
+        return Objects.hash(food, status, deliveryDate, paymentMethod);
     }
 
     @Override
@@ -78,7 +68,6 @@ public class Order extends Entity{
         return "Order{" +
                 "food=" + food +
                 ", status=" + status +
-                ", price=" + price +
                 ", deliveryDate=" + deliveryDate +
                 ", paymentMethod='" + paymentMethod + '\'' +
                 '}';

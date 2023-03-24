@@ -45,7 +45,7 @@ public class AddressService extends Util implements AddressDao {
                 address.setStreet(resultSet.getString("Street"));
                 address.setEntrance(resultSet.getInt("Entrance"));
                 address.setHouseNumber(resultSet.getInt("HouseNumber"));
-                address.setFlatNumber(resultSet.getInt("FlatNumber"));
+                address.setFlatNumber(resultSet.getString("FlatNumber"));
 
                 addressList.add(address);
             }
@@ -61,7 +61,7 @@ public class AddressService extends Util implements AddressDao {
     }
 
     @Override
-    public List<Address> findAll() {
+    public List<Address> findAll()  {
         List<Address> addressList = new ArrayList<>();
         Statement statement = null;
         try {
@@ -75,7 +75,7 @@ public class AddressService extends Util implements AddressDao {
                 address.setStreet(resultSet.getString("Street"));
                 address.setEntrance(resultSet.getInt("Entrance"));
                 address.setHouseNumber(resultSet.getInt("HouseNumber"));
-                address.setFlatNumber(resultSet.getInt("FlatNumber"));
+                address.setFlatNumber(resultSet.getString("FlatNumber"));
 
                 addressList.add(address);
             }
@@ -102,7 +102,7 @@ public class AddressService extends Util implements AddressDao {
             address.setStreet(resultSet.getString("Street"));
             address.setEntrance(resultSet.getInt("Entrance"));
             address.setHouseNumber(resultSet.getInt("HouseNumber"));
-            address.setFlatNumber(resultSet.getInt("FlatNumber"));
+            address.setFlatNumber(resultSet.getString("FlatNumber"));
 
             preparedStatement.executeUpdate();
         }
@@ -168,7 +168,7 @@ public class AddressService extends Util implements AddressDao {
                 preparedStatement.setLong(1,address.getAddressID());
                 preparedStatement.setString(2,address.getStreet());
                 preparedStatement.setInt(3,address.getEntrance());
-                preparedStatement.setInt(4,address.getFlatNumber());
+                preparedStatement.setString(4,address.getFlatNumber());
                 preparedStatement.setInt(5,address.getHouseNumber());
 
                 preparedStatement.executeUpdate();
@@ -192,7 +192,7 @@ public class AddressService extends Util implements AddressDao {
 
             preparedStatement.setString(1,address.getStreet());
             preparedStatement.setInt(2,address.getEntrance());
-            preparedStatement.setInt(3,address.getFlatNumber());
+            preparedStatement.setString(3,address.getFlatNumber());
             preparedStatement.setInt(4,address.getHouseNumber());
             preparedStatement.setLong(5,address.getAddressID());
 

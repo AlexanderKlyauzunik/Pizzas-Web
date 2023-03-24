@@ -7,12 +7,12 @@ public class Address extends Entity{
     private Integer houseNumber;
 
     private Integer entrance;
-    private Integer flatNumber;
+    private String flatNumber;
 
     public Address() {
     }
 
-    public Address(Long addressID, String street, Integer houseNumber, Integer entrance, Integer flatNumber) {
+    public Address(Long addressID, String street, Integer houseNumber, Integer entrance, String flatNumber) {
         super(addressID);
         this.street = street;
         this.houseNumber = houseNumber;
@@ -52,11 +52,11 @@ public class Address extends Entity{
         this.entrance = entrance;
     }
 
-    public Integer getFlatNumber() {
+    public String getFlatNumber() {
         return this.flatNumber;
     }
 
-    public void setFlatNumber(Integer flatNumber) {
+    public void setFlatNumber(String flatNumber) {
         this.flatNumber = flatNumber;
     }
 

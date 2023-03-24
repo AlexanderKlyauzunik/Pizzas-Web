@@ -9,13 +9,24 @@ public class Pizza extends Entity{
     private Boolean doughType;
     private Double price;
 
-    public Pizza(Long pizzaId, String name, String ingredients, String size, Boolean doughType, Double price) {
+    private Double weight;
+
+    public Pizza(Long pizzaId, String name, String ingredients, String size, Boolean doughType, Double price,Double weight) {
         super(pizzaId);
+        this.weight = weight;
         this.name = name;
         this.ingredients = ingredients;
         this.size = size;
         this.doughType = doughType;
         this.price = price;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Long getPizzaId() {
