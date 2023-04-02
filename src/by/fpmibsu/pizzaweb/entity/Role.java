@@ -1,6 +1,10 @@
 package src.by.fpmibsu.pizzaweb.entity;
 
 public class Role extends Entity{
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     private String role;
 
     public String getRole() {
