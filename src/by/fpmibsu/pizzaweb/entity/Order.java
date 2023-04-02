@@ -10,6 +10,7 @@ public class Order extends Entity{
     private Date deliveryDate;
     private String paymentMethod;
 
+    public Order(){}
     public Order(Long orderID,LinkedList<Entity> food, Boolean status, Date deliveryDate, String paymentMethod) {
         super(orderID);
         this.food = food;

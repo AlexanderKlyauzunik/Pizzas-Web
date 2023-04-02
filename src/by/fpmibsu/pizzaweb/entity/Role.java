@@ -7,6 +7,7 @@ public class Role extends Entity{
         return role;
     }
 
+    public Role(){}
     public Role(Long roleID, String role) {
         super(roleID);
         this.role = role;

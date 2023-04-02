@@ -9,8 +9,7 @@ public class Address extends Entity{
     private Integer entrance;
     private String flatNumber;
 
-    public Address() {
-    }
+    public Address() {}
 
     public Address(Long addressID, String street, Integer houseNumber, Integer entrance, String flatNumber) {
         super(addressID);

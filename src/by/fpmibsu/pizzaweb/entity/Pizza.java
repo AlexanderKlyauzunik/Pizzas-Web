@@ -1,5 +1,7 @@
 package src.by.fpmibsu.pizzaweb.entity;
 
+import src.by.fpmibsu.pizzaweb.dao.PizzaDao;
+
 import java.util.Objects;
 
 public class Pizza extends Entity{
@@ -10,7 +12,8 @@ public class Pizza extends Entity{
     private Double price;
 
     private Double weight;
-
+    
+    public Pizza(){}
     public Pizza(Long pizzaId, String name, String ingredients, String size, Boolean doughType, Double price,Double weight) {
         super(pizzaId);
         this.weight = weight;

@@ -6,6 +6,7 @@ public class Drink extends Entity{
     private Double capacity;
     private Double price;
 
+    public Drink(){}
     public Drink(Long drinkID, String name, Double capacity, Double price) {
         super(drinkID);
         this.name = name;

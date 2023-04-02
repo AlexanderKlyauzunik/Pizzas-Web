@@ -91,7 +91,7 @@ public class AddressService extends Util implements AddressDao {
     }
 
     @Override
-    public Address findEntityById(Long id) {
+    public Address findEntityById(Long id)  {
         PreparedStatement preparedStatement = null;
         Address address = new Address();
         try {

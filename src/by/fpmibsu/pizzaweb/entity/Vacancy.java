@@ -10,6 +10,7 @@ public class Vacancy extends Entity{
     private Integer trial;
     private String description;
 
+    public Vacancy(){}
     public Vacancy(Long vacancyID, LinkedList<User> user, Double salary, Integer trial, String description) {
         super(vacancyID);
         this.user = user;

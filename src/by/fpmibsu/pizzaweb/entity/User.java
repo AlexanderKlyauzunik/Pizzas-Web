@@ -22,6 +22,7 @@ public class User extends Entity{
 
     private Role role;
 
+    public User(){}
     public User(Long userId, LinkedList<Address> addresses, Order order, String firstName, String lastName, String password, String email, String telephone, Role role) {
         super(userId);
         this.addresses = addresses;
