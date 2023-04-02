@@ -71,8 +71,6 @@ public class PizzaService extends Util implements PizzaDao {
             close(connection);
         }
         return pizza;
-
-
     }
 
     @Override
