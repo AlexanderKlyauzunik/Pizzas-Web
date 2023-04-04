@@ -6,13 +6,11 @@ import java.util.Objects;
 public class User extends Entity{
 
 
-    private LinkedList<Address> addresses;
+    private Address addresses;
 
     private Order order;
 
-    private String firstName;
-
-    private String lastName;
+    private String firstName_lastName;
 
     private String password;
 
@@ -23,12 +21,11 @@ public class User extends Entity{
     private Role role;
 
     public User(){}
-    public User(Long userId, LinkedList<Address> addresses, Order order, String firstName, String lastName, String password, String email, String telephone, Role role) {
+    public User(Long userId, Address addresses, Order order, String firstName_lastName, String password, String email, String telephone, Role role) {
         super(userId);
         this.addresses = addresses;
         this.order = order;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName_lastName = firstName_lastName;
         this.password = password;
         Email = email;
         Telephone = telephone;
@@ -43,11 +40,11 @@ public class User extends Entity{
         this.setId(userId);
     }
 
-    public LinkedList<Address> getAddresses() {
+    public Address getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(LinkedList<Address> addresses) {
+    public void setAddresses(Address addresses) {
         this.addresses = addresses;
     }
 
@@ -59,20 +56,12 @@ public class User extends Entity{
         this.order = order;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstName_lastName() {
+        return firstName_lastName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstName_lastName(String firstName_lastName) {
+        this.firstName_lastName = firstName_lastName;
     }
 
     public String getPassword() {
@@ -113,12 +102,12 @@ public class User extends Entity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(addresses, user.addresses) && Objects.equals(order, user.order) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(Email, user.Email) && Objects.equals(Telephone, user.Telephone) && Objects.equals(role, user.role);
+        return Objects.equals(addresses, user.addresses) && Objects.equals(order, user.order) && Objects.equals(firstName_lastName, user.firstName_lastName) && Objects.equals(password, user.password) && Objects.equals(Email, user.Email) && Objects.equals(Telephone, user.Telephone) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addresses, order, firstName, lastName, password, Email, Telephone, role);
+        return Objects.hash(addresses, order, firstName_lastName, password, Email, Telephone, role);
     }
 
     @Override
@@ -126,8 +115,7 @@ public class User extends Entity{
         return "User{" +
                 "addresses=" + addresses +
                 ", order=" + order +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName_lastName='" + firstName_lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", Email='" + Email + '\'' +
                 ", Telephone='" + Telephone + '\'' +
