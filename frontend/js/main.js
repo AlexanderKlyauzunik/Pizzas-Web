@@ -119,7 +119,7 @@ let loginButton = document.querySelector(".profile-button-orig");
 let loginText = document.querySelector(".profile-button-text-orig");
 
 loginButton.addEventListener("click", function() {
-    window.open("../html/profile.html");
+    window.open("./frontend/html/profile.html");
 });
 
 let loginFlag = 0;
