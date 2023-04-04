@@ -2,13 +2,10 @@ package src.by.fpmibsu.pizzaweb.service;
 
 import src.by.fpmibsu.pizzaweb.bl.Util;
 import src.by.fpmibsu.pizzaweb.dao.OrderDao;
-import src.by.fpmibsu.pizzaweb.dao.PizzaDao;
 import src.by.fpmibsu.pizzaweb.entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -66,7 +63,7 @@ public class OrderService extends Util implements OrderDao {
                     close(statement1);
                     close(statement2);
                 }
-
+                orders.add(order);
             }
         }
         catch (SQLException e){
@@ -87,6 +84,7 @@ public class OrderService extends Util implements OrderDao {
         Order order = new Order();
         final String SQL_SELECT_BY_ID = "SELECT \"OrderID\", \"Status\", \"DeliveryDate\", \"PaymentMethod\"\n" +
                 "\tFROM public.\"Order\" WHERE \"OrderID\" = ?;";
+
         final String SQL_INNER_1 = "SELECT \"DrinkID\"\n" +
                 "\tFROM public.\"Drink_order\" WHERE \"OrderID\" = ?;";
 
@@ -137,8 +135,8 @@ public class OrderService extends Util implements OrderDao {
 
     @Override
     public boolean delete(Long id) {
-        final String SQL_DELETE_BY_ID = "SELECT \"OrderID\", \"Status\", \"DeliveryDate\", \"PaymentMethod\"\n" +
-                "\tFROM public.\"Order\" WHERE \"OrderID\" = ?;";
+        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Order\"\n" +
+                "\tWHERE \"OrderID\" = ?;";
         PreparedStatement preparedStatement = null;
 
         try {
