@@ -1,30 +1,41 @@
 package src.by.fpmibsu.pizzaweb.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Objects;
 
 public class Order extends Entity{
-    private LinkedList<Entity> food;
+    private ArrayList<Drink> drinks;
+    private ArrayList<Pizza> pizzas;
     private Boolean status;
     private Date deliveryDate;
     private String paymentMethod;
 
     public Order(){}
-    public Order(Long orderID,LinkedList<Entity> food, Boolean status, Date deliveryDate, String paymentMethod) {
+    public Order(Long orderID,ArrayList<Pizza> pizzas,ArrayList<Drink> drinks, Boolean status, Date deliveryDate, String paymentMethod) {
         super(orderID);
-        this.food = food;
+        this.pizzas = pizzas;
+        this.drinks = drinks;
         this.status = status;
         this.deliveryDate = deliveryDate;
         this.paymentMethod = paymentMethod;
     }
 
-    public LinkedList<Entity> getFood() {
-        return food;
+    public ArrayList<Drink> getDrinks() {
+        return drinks;
     }
 
-    public void setFood(LinkedList<Entity> food) {
-        this.food = food;
+    public void setDrinks(ArrayList<Drink> food) {
+        this.drinks = food;
+    }
+
+    public ArrayList<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public void setPizzas(ArrayList<Pizza> pizzas) {
+        this.pizzas = pizzas;
     }
 
     public Boolean getStatus() {
@@ -56,18 +67,19 @@ public class Order extends Entity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(food, order.food) && Objects.equals(status, order.status)  && Objects.equals(deliveryDate, order.deliveryDate) && Objects.equals(paymentMethod, order.paymentMethod);
+        return Objects.equals(drinks, order.drinks) && Objects.equals(pizzas, order.pizzas) && Objects.equals(status, order.status) && Objects.equals(deliveryDate, order.deliveryDate) && Objects.equals(paymentMethod, order.paymentMethod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(food, status, deliveryDate, paymentMethod);
+        return Objects.hash(drinks, pizzas, status, deliveryDate, paymentMethod);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "food=" + food +
+                "drinks=" + drinks +
+                ", pizzas=" + pizzas +
                 ", status=" + status +
                 ", deliveryDate=" + deliveryDate +
                 ", paymentMethod='" + paymentMethod + '\'' +

@@ -122,19 +122,18 @@ public class PizzaService extends Util implements PizzaDao {
     @Override
     public boolean create(Pizza pizza) {
         final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Pizza\"(\n" +
-                "\t\"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\")\n" +
-                "\tVALUES (?, ?, ?, ?, ?, ?);";
+                "\t\"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\")\n" +
+                "\tVALUES (?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-            preparedStatement.setLong(1,pizza.getPizzaId());
-            preparedStatement.setString(2,pizza.getName());
-            preparedStatement.setString(3,pizza.getIngredients());
-            preparedStatement.setBoolean(4,pizza.getDoughType());
-            preparedStatement.setDouble(5,pizza.getWeight());
-            preparedStatement.setDouble(6,pizza.getPrice());
+            preparedStatement.setString(1,pizza.getName());
+            preparedStatement.setString(2,pizza.getIngredients());
+            preparedStatement.setBoolean(3,pizza.getDoughType());
+            preparedStatement.setDouble(4,pizza.getWeight());
+            preparedStatement.setDouble(5,pizza.getPrice());
 
             preparedStatement.executeUpdate();
             return true;

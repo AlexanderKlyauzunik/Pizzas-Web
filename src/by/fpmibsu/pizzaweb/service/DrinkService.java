@@ -119,17 +119,16 @@ public class DrinkService  extends Util implements DrinkDao {
     @Override
     public boolean create(Drink drink) {
         final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Drink\"(\n" +
-                "\t\"DrinkID\", \"Name\", \"Capacity\", \"Price\")\n" +
-                "\tVALUES (?, ?, ?, ?);";
+                "\t\"Name\", \"Capacity\", \"Price\")\n" +
+                "\tVALUES (?, ?, ?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-            preparedStatement.setLong(1,drink.getDrinkID());
-            preparedStatement.setString(2,drink.getName());
-            preparedStatement.setDouble(3,drink.getCapacity());
-            preparedStatement.setDouble(4,drink.getPrice());
+            preparedStatement.setString(1,drink.getName());
+            preparedStatement.setDouble(2,drink.getCapacity());
+            preparedStatement.setDouble(3,drink.getPrice());
 
             preparedStatement.executeUpdate();
             return true;

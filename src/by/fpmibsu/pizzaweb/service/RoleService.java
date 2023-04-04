@@ -52,8 +52,6 @@ public class RoleService extends Util implements RoleDao {
             ResultSet resultSet= preparedStatement.executeQuery();
             role.setId(resultSet.getLong("RoleID"));
             role.setRole(resultSet.getString("Name"));
-
-            preparedStatement.executeUpdate();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -114,15 +112,14 @@ public class RoleService extends Util implements RoleDao {
     @Override
     public boolean create(Role role) {
         final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Role\"(\n" +
-                "\t\"RoleID\", \"Name\")\n" +
-                "\tVALUES (?, ?);";
+                "\t\"Name\")\n" +
+                "\tVALUES (?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-            preparedStatement.setLong(1,role.getId());
-            preparedStatement.setString(2,role.getRole());
+            preparedStatement.setString(1,role.getRole());
 
             preparedStatement.executeUpdate();
             return true;

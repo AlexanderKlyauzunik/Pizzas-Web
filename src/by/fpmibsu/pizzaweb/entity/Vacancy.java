@@ -8,15 +8,15 @@ public class Vacancy extends Entity{
     private LinkedList<User> user;
     private Double salary;
     private Integer trial;
-    private String description;
+    private String name;
 
     public Vacancy(){}
-    public Vacancy(Long vacancyID, LinkedList<User> user, Double salary, Integer trial, String description) {
+    public Vacancy(Long vacancyID, LinkedList<User> user, Double salary, Integer trial, String name) {
         super(vacancyID);
         this.user = user;
         this.salary = salary;
         this.trial = trial;
-        this.description = description;
+        this.name = name;
     }
 
     public Long getVacancyID() {
@@ -51,12 +51,12 @@ public class Vacancy extends Entity{
         this.trial = trial;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String description) {
+        this.name = description;
     }
 
     @Override
@@ -64,12 +64,12 @@ public class Vacancy extends Entity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vacancy vacancy = (Vacancy) o;
-        return Objects.equals(user, vacancy.user) && Objects.equals(salary, vacancy.salary) && Objects.equals(trial, vacancy.trial) && Objects.equals(description, vacancy.description);
+        return Objects.equals(user, vacancy.user) && Objects.equals(salary, vacancy.salary) && Objects.equals(trial, vacancy.trial) && Objects.equals(name, vacancy.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, salary, trial, description);
+        return Objects.hash(user, salary, trial, name);
     }
 
     @Override
@@ -78,7 +78,8 @@ public class Vacancy extends Entity{
                 "user=" + user +
                 ", salary=" + salary +
                 ", trial=" + trial +
-                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
+

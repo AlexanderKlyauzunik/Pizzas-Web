@@ -12,8 +12,8 @@ import java.util.List;
 public class AddressService extends Util implements AddressDao {
      Connection connection = getConnection();
 
-    private static final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Address\"(\"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\")\n" +
-            "\tVALUES (?, ?, ?, ?, ?);";
+    private static final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Address\"(\"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\")\n" +
+            "\tVALUES (?, ?, ?, ?);";
     private static final String SQL_SELECT_ALL = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\";";
 
     private static final String SQL_SELECT_BY_ID = "SELECT \"AddressID\", \"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\" \n" +
@@ -165,11 +165,10 @@ public class AddressService extends Util implements AddressDao {
 
             try {
                 preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-                preparedStatement.setLong(1,address.getAddressID());
-                preparedStatement.setString(2,address.getStreet());
-                preparedStatement.setInt(3,address.getEntrance());
-                preparedStatement.setString(4,address.getFlatNumber());
-                preparedStatement.setInt(5,address.getHouseNumber());
+                preparedStatement.setString(1,address.getStreet());
+                preparedStatement.setInt(2,address.getEntrance());
+                preparedStatement.setString(3,address.getFlatNumber());
+                preparedStatement.setInt(4,address.getHouseNumber());
 
                 preparedStatement.executeUpdate();
                 return true;
