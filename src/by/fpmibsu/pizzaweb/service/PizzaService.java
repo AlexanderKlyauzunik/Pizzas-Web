@@ -49,8 +49,8 @@ public class PizzaService extends Util implements PizzaDao {
     public Pizza findEntityById(Long id) {
         PreparedStatement preparedStatement = null;
         Pizza pizza = new Pizza();
-       final String SQL_SELECT_BY_ID = "\tSELECT \"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\"\n" +
-                "\t\tFROM public.\"Pizza\" WHERE \"PizzaId\" = ?;";
+       final String SQL_SELECT_BY_ID = "SELECT \"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\", \"Size\"\n" +
+               "\tFROM public.\"Pizza\" WHERE \"PizzaID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
@@ -61,6 +61,7 @@ public class PizzaService extends Util implements PizzaDao {
             pizza.setDoughType(resultSet.getBoolean("TypeDrough"));
             pizza.setWeight(resultSet.getDouble("BasicWeight"));
             pizza.setWeight(resultSet.getDouble("Price"));
+            pizza.setSize(resultSet.getBoolean("Size"));
 
             preparedStatement.executeUpdate();
         }
@@ -123,8 +124,8 @@ public class PizzaService extends Util implements PizzaDao {
     @Override
     public boolean create(Pizza pizza) {
         final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Pizza\"(\n" +
-                "\t\"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\")\n" +
-                "\tVALUES (?, ?, ?, ?, ?);";
+                "\t\"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\", \"Size\")\n" +
+                "\tVALUES (?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = null;
 
@@ -135,6 +136,7 @@ public class PizzaService extends Util implements PizzaDao {
             preparedStatement.setBoolean(3,pizza.getDoughType());
             preparedStatement.setDouble(4,pizza.getWeight());
             preparedStatement.setDouble(5,pizza.getPrice());
+            preparedStatement.setBoolean(6,pizza.getDoughType());
 
             preparedStatement.executeUpdate();
             return true;
@@ -151,9 +153,9 @@ public class PizzaService extends Util implements PizzaDao {
 
     @Override
     public void update(Pizza pizza) {
-        final String SQL_UPDATE = "UPDATE public.\"Pizza\"\n" +
-                "\tSET  \"Name\"=?, \"Ingredients\"=?, \"TypeDrough\"=?, \"BasicWeight\"=?, \"Price\"=?\n" +
-                "\tWHERE \"PizzaID\"=?;";
+            final String SQL_UPDATE = "UPDATE public.\"Pizza\"\n" +
+                    "\tSET  \"Name\"=?, \"Ingredients\"=?, \"TypeDrough\"=?, \"BasicWeight\"=?, \"Price\"=?, \"Size\"=?\n" +
+                    "\tWHERE \"PizzaID\"=?;";
 
         PreparedStatement preparedStatement = null;
         try{
@@ -164,7 +166,8 @@ public class PizzaService extends Util implements PizzaDao {
             preparedStatement.setBoolean(3,pizza.getDoughType());
             preparedStatement.setDouble(4,pizza.getWeight());
             preparedStatement.setDouble(5,pizza.getPrice());
-            preparedStatement.setLong(6,pizza.getPizzaId());
+            preparedStatement.setBoolean(6,pizza.getSize());
+            preparedStatement.setLong(7,pizza.getPizzaId());
 
             preparedStatement.executeUpdate();
         }
