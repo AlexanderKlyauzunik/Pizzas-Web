@@ -13,8 +13,8 @@ public class PizzaService extends Util implements PizzaDao {
     Connection connection = getConnection();
     @Override
     public List<Pizza> findAll() {
-       final String SQL_SELECT_ALL = "SELECT \"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\"\n" +
-                "\tFROM public.\"Pizza\";";
+       final String SQL_SELECT_ALL = "SELECT \"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\", \"Size\"\n" +
+               "\tFROM public.\"Pizza\"";
         List<Pizza> pizzaList = new ArrayList<>();
         Statement statement = null;
         try {
@@ -28,6 +28,7 @@ public class PizzaService extends Util implements PizzaDao {
                 pizza.setName(resultSet.getString("Name"));
                 pizza.setIngredients(resultSet.getString("Ingredients"));
                 pizza.setDoughType(resultSet.getBoolean("TypeDrough"));
+                pizza.setSize(resultSet.getBoolean("Size"));
                 pizza.setWeight(resultSet.getDouble("BasicWeight"));
                 pizza.setWeight(resultSet.getDouble("Price"));
 

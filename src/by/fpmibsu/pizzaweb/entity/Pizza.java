@@ -7,14 +7,14 @@ import java.util.Objects;
 public class Pizza extends Entity{
     private String name;
     private String ingredients;
-    private String size;
+    private Boolean size;
     private Boolean doughType;
     private Double price;
 
     private Double weight;
     
     public Pizza(){}
-    public Pizza(Long pizzaId, String name, String ingredients, String size, Boolean doughType, Double price,Double weight) {
+    public Pizza(Long pizzaId, String name, String ingredients, Boolean size, Boolean doughType, Double price,Double weight) {
         super(pizzaId);
         this.weight = weight;
         this.name = name;
@@ -56,11 +56,11 @@ public class Pizza extends Entity{
         this.ingredients = ingredients;
     }
 
-    public String getSize() {
+    public Boolean getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Boolean size) {
         this.size = size;
     }
 
@@ -85,12 +85,12 @@ public class Pizza extends Entity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pizza pizza = (Pizza) o;
-        return Objects.equals(name, pizza.name) && Objects.equals(ingredients, pizza.ingredients) && Objects.equals(size, pizza.size) && Objects.equals(doughType, pizza.doughType) && Objects.equals(price, pizza.price);
+        return Objects.equals(name, pizza.name) && Objects.equals(ingredients, pizza.ingredients) && Objects.equals(size, pizza.size) && Objects.equals(doughType, pizza.doughType) && Objects.equals(price, pizza.price) && Objects.equals(weight, pizza.weight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, ingredients, size, doughType, price);
+        return Objects.hash(name, ingredients, size, doughType, price, weight);
     }
 
     @Override
@@ -98,9 +98,10 @@ public class Pizza extends Entity{
         return "Pizza{" +
                 "name='" + name + '\'' +
                 ", ingredients='" + ingredients + '\'' +
-                ", size='" + size + '\'' +
+                ", size=" + size +
                 ", doughType=" + doughType +
                 ", price=" + price +
+                ", weight=" + weight +
                 '}';
     }
 }
