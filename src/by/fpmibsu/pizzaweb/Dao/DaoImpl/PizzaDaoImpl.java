@@ -74,7 +74,6 @@ public class PizzaDaoImpl extends Util implements PizzaDao {
         return pizza;
     }
 
-
     @Override
     public boolean delete(Pizza pizza) {
           final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Pizza\"\n" +

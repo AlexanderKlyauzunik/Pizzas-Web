@@ -102,7 +102,6 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
         return vacancy;
     }
 
-
     @Override
     public boolean delete(Vacancy vacancy) {
         final String SQL_DELETE_BY_NAME = "DELETE FROM public.\"Vacancy\"\n" +

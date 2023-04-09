@@ -12,11 +12,6 @@ public class Role extends Entity{
     }
 
     public Role(){}
-
-    public Role(String role) {
-        this.role = role;
-    }
-
     public Role(Long roleID, String role) {
         super(roleID);
         this.role = role;
