@@ -11,6 +11,13 @@ public class Address extends Entity{
 
     public Address() {}
 
+    public Address(String street, Integer houseNumber, Integer entrance, String flatNumber) {
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.entrance = entrance;
+        this.flatNumber = flatNumber;
+    }
+
     public Address(Long addressID, String street, Integer houseNumber, Integer entrance, String flatNumber) {
         super(addressID);
         this.street = street;

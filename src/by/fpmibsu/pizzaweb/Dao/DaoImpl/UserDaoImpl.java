@@ -73,6 +73,8 @@ public class UserDaoImpl extends Util implements UserDao {
         return user;
     }
 
+
+
     @Override
     public boolean delete(User user) {
         final String SQL_DELETE_BY_ID = "DELETE FROM public.\"User\"\n" +

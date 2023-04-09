@@ -43,14 +43,15 @@ public class RoleDaoImpl extends Util implements RoleDao {
     public Role findEntityById(Long id) {
         PreparedStatement preparedStatement = null;
         Role role = new Role();
-        final String SQL_SELECT_BY_ID = "SELECT \"RoleID\", \"Name\"\n" +
-                "\tFROM public.\"Role\" WHERE \"RoleID\" = ?;";
+        final String SQL_SELECT_BY_ID = "SELECT \"RoleID\", \"Name\" FROM public.\"Role\" WHERE \"RoleID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
-            ResultSet resultSet= preparedStatement.executeQuery();
-            role.setId(resultSet.getLong("RoleID"));
-            role.setRole(resultSet.getString("Name"));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                role.setId(resultSet.getLong("RoleID"));
+                role.setRole(resultSet.getString("Name"));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -61,6 +62,8 @@ public class RoleDaoImpl extends Util implements RoleDao {
         }
         return role;
     }
+
+
 
     @Override
     public boolean delete(Role role) {
