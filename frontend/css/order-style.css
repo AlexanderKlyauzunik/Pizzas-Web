@@ -374,6 +374,7 @@ html {
 }
 
 body {
+    height: 100%;
     background: linear-gradient(90deg, #FFF1C9 0%, #FFE557 50%, #FFF1C7 100%);
 }
 
@@ -626,12 +627,41 @@ body {
     border-radius: 20px;
 }
 
+.description-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .order-item-title {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     line-height: 24px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+.order-item-size {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+
+    color: #000000;
+}
+
+.order-item-dough {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
     /* identical to box height */
 
     color: #000000;

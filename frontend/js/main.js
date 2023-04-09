@@ -1,5 +1,71 @@
 
-const all_prices = [14.99, 20.99, 16.99, 22.99]
+let pizza_images = [
+    "../img/pizzas/пепперони.jpg",
+    "../img/pizzas/4_сыра.jpg",
+    "../img/pizzas/гавайская.jpg",
+    "../img/pizzas/барбекю.jpg",
+    "../img/pizzas/с креветкамиjpg.jpg",
+    "../img/pizzas/деревенская.jpg"
+]
+
+let drink_images = [
+    "../img/drinks/cola.png",
+    "../img/drinks/cola_big.png",
+    "../img/drinks/cola_zero_.png",
+    "../img/drinks/cola_zero_big.png",
+    "../img/drinks/fanta.png",
+    "../img/drinks/fanta_big.png",
+    "../img/drinks/sprite.png",
+    "../img/drinks/sprite_big.png",
+    "../img/drinks/whiskey.png",
+    "../img/drinks/water.png"
+]
+
+function loadData() {
+    var busket = document.querySelector(".busket-button-text-orig");
+    var busket_quantity = document.querySelector(".busket-button-quantity-text");
+    if (typeof localStorage["busket-price"] === 'undefined') {
+        localStorage["busket-price"] = '0.00';
+    }
+    if (typeof localStorage["busket-quantity"] === 'undefined') {
+        localStorage["busket-quantity"] = '0';
+    }
+    busket.textContent = localStorage["busket-price"] + " BYN";
+    busket_quantity.textContent = localStorage["busket-quantity"];
+
+    //for pizza
+
+    for (let index = 1; index <= 6; index++) {
+        if (typeof localStorage["quantity-pizza-Mid-Thin-" + index] === 'undefined') {
+            localStorage["quantity-pizza-Mid-Thin-" + index] = 0; 
+        }
+        if (typeof localStorage["quantity-pizza-Mid-Thick-" + index] === 'undefined') {
+            localStorage["quantity-pizza-Mid-Thick-" + index] = 0; 
+        }
+        if (typeof localStorage["quantity-pizza-Big-Thin-" + index] === 'undefined') {
+            localStorage["quantity-pizza-Big-Thin-" + index] = 0; 
+        }
+        if (typeof localStorage["quantity-pizza-Big-Thick-" + index] === 'undefined') {
+            localStorage["quantity-pizza-Big-Thick-" + index] = 0; 
+        }
+    }
+
+    //for drinks
+
+    for (let index = 1; index <= 10; index++) {
+        if (typeof localStorage["quantity-drink-" + index] === 'undefined') {
+            localStorage["quantity-drink-" + index] = 0;
+        }
+    }
+}
+
+//localStorage.clear();
+
+loadData();
+
+for (let index = 1; index <= 6; index++) {
+    console.log(localStorage["quantity-pizza-" + index]);
+}
 
 //pizza price according to size
 
@@ -50,14 +116,31 @@ var pizza_buskets = document.querySelectorAll(".profile-button");
 pizza_buskets.forEach(element => {
     const element_id = element.id.charAt(7);
     const price_name = "price-" + element_id;
+    const pizza = document.getElementById("pizza-" + element_id);
     element.addEventListener("click", function() {
         var text = document.getElementById(price_name).textContent;
         var index = text.search(" ");
         var busket_index = busket.textContent.search(" ");
         const prev_price = parseFloat(busket.textContent.substring(0, busket_index));
         var new_price = prev_price + parseFloat(document.getElementById(price_name).textContent.substring(0, index));
+        localStorage["busket-price"] = new_price.toFixed(2);
         busket.textContent = new_price.toFixed(2) + " BYN";
         const new_quantity = parseInt(busket_quantity.textContent) + 1;
+
+        localStorage['busket-quantity'] = new_quantity;
+        localStorage["quantity-pizza-" + pizza.querySelector(".size-select").options[0].value +
+         "-" + pizza.querySelector(".dough-select").options[0].value + "-" + element_id] =
+        parseInt(localStorage["quantity-pizza-" + pizza.querySelector(".size-select").options[0].value +
+        "-" + pizza.querySelector(".dough-select").options[0].value + "-" + element_id]) + 1;
+        localStorage["pizza-name-" + element_id] = pizza.querySelector(".pizza-card-title").textContent;
+        console.log(localStorage["pizza-name-" + element_id]);
+        localStorage["pizza-image-" + element_id] = pizza_images[element_id - 1];
+        localStorage["price-pizza-" + pizza.querySelector(".size-select").options[0].value +
+        "-" + pizza.querySelector(".dough-select").options[0].value + "-" + element_id] = 
+        (parseFloat(document.getElementById(price_name).textContent.substring(0, index)) *
+        parseFloat(localStorage["quantity-pizza-" + pizza.querySelector(".size-select").options[0].value +
+         "-" + pizza.querySelector(".dough-select").options[0].value + "-" + element_id])).toFixed(2);
+
         busket_quantity.textContent = new_quantity;
     });
 });
@@ -67,15 +150,22 @@ drink_buskets.forEach(element => {
     var button_index = element.id.search("-");
     const element_id = element.id.substring(button_index + 1);
     const price_name = "dprice-" + element_id;
-    console.log(price_name);
+    const pizza = document.getElementById("drink-" + element_id);
     element.addEventListener("click", function() {
         var text = document.getElementById(price_name).textContent;
         var index = text.search(" ");
         var busket_index = busket.textContent.search(" ");
         const prev_price = parseFloat(busket.textContent.substring(0, busket_index));
         var new_price = prev_price + parseFloat(document.getElementById(price_name).textContent.substring(0, index));
+        localStorage["busket-price"] = new_price.toFixed(2);
         busket.textContent = new_price.toFixed(2) + " BYN";
         const new_quantity = parseInt(busket_quantity.textContent) + 1;
+        localStorage['busket-quantity'] = new_quantity;
+        localStorage["quantity-drink-" + element_id] = parseInt(localStorage["quantity-drink-" + element_id]) + 1;
+        localStorage["drink-name-" + element_id] = pizza.querySelector(".drink-card-title").textContent;
+        localStorage["drink-image-" + element_id] = drink_images[element_id - 1];
+        localStorage["price-drink-" + element_id] = parseFloat(document.getElementById(price_name).textContent.substring(0, index)).toFixed(2);
+
         busket_quantity.textContent = new_quantity;
     });
 });
