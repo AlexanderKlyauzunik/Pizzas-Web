@@ -1,15 +1,15 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.OrderDao;
-import src.by.fpmibsu.pizzaweb.entity.*;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.OrderDao;
+import src.by.fpmibsu.pizzaweb.Entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderService extends Util implements OrderDao {
+public class OrderDaoImpl extends Util implements OrderDao {
     Connection connection = getConnection();
     @Override
     public List<Order> findAll() {
@@ -48,10 +48,10 @@ public class OrderService extends Util implements OrderDao {
                     ArrayList<Pizza> pizzas = new ArrayList<>();
 
                     while (resultSet2.next())
-                         pizzas.add(new PizzaService().findEntityById(resultSet2.getLong("PizzaId")));
+                         pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaId")));
 
                     while (resultSet1.next())
-                        drinks.add(new DrinkService().findEntityById(resultSet1.getLong("DrinkID")));
+                        drinks.add(new DrinkDaoImpl().findEntityById(resultSet1.getLong("DrinkID")));
 
                     order.setDrinks(drinks);
                     order.setPizzas(pizzas);
@@ -110,10 +110,10 @@ public class OrderService extends Util implements OrderDao {
             ArrayList<Pizza> pizzas = new ArrayList<>();
 
             while (resultSet2.next())
-                pizzas.add(new PizzaService().findEntityById(resultSet2.getLong("PizzaId")));
+                pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaId")));
 
             while (resultSet1.next())
-                drinks.add(new DrinkService().findEntityById(resultSet1.getLong("DrinkID")));
+                drinks.add(new DrinkDaoImpl().findEntityById(resultSet1.getLong("DrinkID")));
 
             order.setDrinks(drinks);
             order.setPizzas(pizzas);

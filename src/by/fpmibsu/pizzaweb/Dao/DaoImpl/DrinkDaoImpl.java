@@ -1,21 +1,21 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.RoleDao;
-import src.by.fpmibsu.pizzaweb.entity.Drink;
-import src.by.fpmibsu.pizzaweb.entity.Role;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.DrinkDao;
+import src.by.fpmibsu.pizzaweb.Entity.Drink;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleService extends Util implements RoleDao {
+
+public class DrinkDaoImpl extends Util implements DrinkDao {
     Connection connection = getConnection();
     @Override
-    public List<Role> findAll() {
-        final String SQL_SELECT_ALL = "SELECT \"RoleID\", \"Name\"\n" +
-                "\tFROM public.\"Role\";";
-        List<Role> roleList = new ArrayList<>();
+    public List<Drink> findAll() {
+        final String SQL_SELECT_ALL = "SELECT \"DrinkID\", \"Name\", \"Capacity\", \"Price\"\n" +
+                "\tFROM public.\"Drink\";";
+        List<Drink> drinksList = new ArrayList<>();
         Statement statement = null;
         try {
             statement = connection.createStatement();
@@ -23,11 +23,13 @@ public class RoleService extends Util implements RoleDao {
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL);
 
             while (resultSet.next()) {
-                Role role = new Role();
-                role.setId(resultSet.getLong("RoleID"));
-                role.setRole(resultSet.getString("Name"));
+                Drink drink = new Drink();
+                drink.setDrinkID(resultSet.getLong("DrinkID"));
+                drink.setName(resultSet.getString("Name"));
+                drink.setCapacity(resultSet.getDouble("Capacity"));
+                drink.setPrice(resultSet.getDouble("Price"));
 
-                roleList.add(role);
+                drinksList.add(drink);
             }
         }
         catch (SQLException e){
@@ -37,21 +39,25 @@ public class RoleService extends Util implements RoleDao {
             close(statement);
             close(connection);
         }
-        return roleList;
+        return drinksList;
     }
 
     @Override
-    public Role findEntityById(Long id) {
+    public Drink findEntityById(Long id) {
         PreparedStatement preparedStatement = null;
-        Role role = new Role();
-        final String SQL_SELECT_BY_ID = "SELECT \"RoleID\", \"Name\"\n" +
-                "\tFROM public.\"Role\" WHERE \"RoleID\" = ?;";
+        Drink drink = new Drink();
+        final String SQL_SELECT_BY_ID = "SELECT \"DrinkID\", \"Name\", \"Capacity\", \"Price\"\n" +
+                "\tFROM public.\"Drink\" WHERE \"DrinkID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            role.setId(resultSet.getLong("RoleID"));
-            role.setRole(resultSet.getString("Name"));
+            drink.setId(resultSet.getLong("DrinkID"));
+            drink.setName(resultSet.getString("Name"));
+            drink.setCapacity(resultSet.getDouble("Capacity"));
+            drink.setPrice(resultSet.getDouble("Price"));
+
+            preparedStatement.executeUpdate();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -60,18 +66,18 @@ public class RoleService extends Util implements RoleDao {
             close(preparedStatement);
             close(connection);
         }
-        return role;
+        return drink;
     }
 
     @Override
-    public boolean delete(Role role) {
-        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Role\"\n" +
+    public boolean delete(Drink drink) {
+        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Drink\"\n" +
                 "\tWHERE \"Name\" = ?;";
         PreparedStatement preparedStatement = null;
 
         try{
             preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
-            preparedStatement.setString(1,role.getRole());
+            preparedStatement.setString(1,drink.getName());
 
             preparedStatement.executeUpdate();
             return true;
@@ -88,8 +94,8 @@ public class RoleService extends Util implements RoleDao {
 
     @Override
     public boolean delete(Long id) {
-        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Role\"\n" +
-                "\tWHERE \"RoleID\" = ?;";
+        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Drink\"\n" +
+                "\tWHERE \"DrinkID\" = ?;";
         PreparedStatement preparedStatement = null;
 
         try{
@@ -110,16 +116,18 @@ public class RoleService extends Util implements RoleDao {
     }
 
     @Override
-    public boolean create(Role role) {
-        final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Role\"(\n" +
-                "\t\"Name\")\n" +
-                "\tVALUES (?);";
+    public boolean create(Drink drink) {
+        final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Drink\"(\n" +
+                "\t\"Name\", \"Capacity\", \"Price\")\n" +
+                "\tVALUES (?, ?, ?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-            preparedStatement.setString(1,role.getRole());
+            preparedStatement.setString(1,drink.getName());
+            preparedStatement.setDouble(2,drink.getCapacity());
+            preparedStatement.setDouble(3,drink.getPrice());
 
             preparedStatement.executeUpdate();
             return true;
@@ -135,17 +143,19 @@ public class RoleService extends Util implements RoleDao {
     }
 
     @Override
-    public void update(Role role) {
-        final String SQL_UPDATE = "UPDATE public.\"Role\"\n" +
-                "\tSET \"Name\"=?\n" +
-                "\tWHERE \"RoleID\" = ?;";
+    public void update(Drink drink) {
+        final String SQL_UPDATE = "UPDATE public.\"Drink\"\n" +
+                "\tSET  \"Name\"=?, \"Capacity\"=?, \"Price\"=?\n" +
+                "\tWHERE \"DrinkID\" = ?;";
 
         PreparedStatement preparedStatement = null;
         try{
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
 
-            preparedStatement.setString(1,role.getRole());
-            preparedStatement.setLong(2,role.getId());
+            preparedStatement.setString(1,drink.getName());
+            preparedStatement.setDouble(2,drink.getCapacity());
+            preparedStatement.setDouble(3,drink.getPrice());
+            preparedStatement.setLong(4,drink.getDrinkID());
 
             preparedStatement.executeUpdate();
         }

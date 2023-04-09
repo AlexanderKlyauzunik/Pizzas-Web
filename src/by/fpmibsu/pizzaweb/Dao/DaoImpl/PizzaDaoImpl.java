@@ -1,15 +1,14 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.PizzaDao;
-import src.by.fpmibsu.pizzaweb.entity.Address;
-import src.by.fpmibsu.pizzaweb.entity.Pizza;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.PizzaDao;
+import src.by.fpmibsu.pizzaweb.Entity.Pizza;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PizzaService extends Util implements PizzaDao {
+public class PizzaDaoImpl extends Util implements PizzaDao {
     Connection connection = getConnection();
     @Override
     public List<Pizza> findAll() {

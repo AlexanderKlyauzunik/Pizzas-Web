@@ -1,6 +1,5 @@
-package src.by.fpmibsu.pizzaweb.entity;
+package src.by.fpmibsu.pizzaweb.Entity;
 
-import java.util.LinkedList;
 import java.util.Objects;
 
 public class User extends Entity{

@@ -1,4 +1,4 @@
-package src.by.fpmibsu.pizzaweb.bl;
+package src.by.fpmibsu.pizzaweb.Services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

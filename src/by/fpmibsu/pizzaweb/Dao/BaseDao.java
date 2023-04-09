@@ -1,5 +1,5 @@
-package src.by.fpmibsu.pizzaweb.dao;
-import src.by.fpmibsu.pizzaweb.entity.Entity;
+package src.by.fpmibsu.pizzaweb.Dao;
+import src.by.fpmibsu.pizzaweb.Entity.Entity;
 
 import java.util.List;
 import java.sql.Connection;

@@ -1,15 +1,14 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.OrderDao;
-import src.by.fpmibsu.pizzaweb.dao.UserDao;
-import src.by.fpmibsu.pizzaweb.entity.*;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.UserDao;
+import src.by.fpmibsu.pizzaweb.Entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService extends Util implements UserDao {
+public class UserDaoImpl extends Util implements UserDao {
     Connection connection = getConnection();
     @Override
     public List<User> findAll() {
@@ -26,13 +25,13 @@ public class UserService extends Util implements UserDao {
             while (resultSet.next()) {
                 User user = new User();
                 user.setUserId(resultSet.getLong("UserID"));
-                user.setRole(new RoleService().findEntityById(resultSet.getLong("Role_id")));
+                user.setRole(new RoleDaoImpl().findEntityById(resultSet.getLong("Role_id")));
                 user.setFirstName_lastName(resultSet.getString("First_SecondName"));
                 user.setPassword(resultSet.getString("Password"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setTelephone(resultSet.getString("Phone_number"));
-                user.setAddresses(new AddressService().findEntityById(resultSet.getLong("Address_id")));
-                user.setOrder(new OrderService().findEntityById(resultSet.getLong("Order_id")));
+                user.setAddresses(new AddressDaoImpl().findEntityById(resultSet.getLong("Address_id")));
+                user.setOrder(new OrderDaoImpl().findEntityById(resultSet.getLong("Order_id")));
             }
         }
         catch (SQLException e){
@@ -56,13 +55,13 @@ public class UserService extends Util implements UserDao {
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
             user.setUserId(resultSet.getLong("UserID"));
-            user.setRole(new RoleService().findEntityById(resultSet.getLong("Role_id")));
+            user.setRole(new RoleDaoImpl().findEntityById(resultSet.getLong("Role_id")));
             user.setFirstName_lastName(resultSet.getString("First_SecondName"));
             user.setPassword(resultSet.getString("Password"));
             user.setEmail(resultSet.getString("Email"));
             user.setTelephone(resultSet.getString("Phone_number"));
-            user.setAddresses(new AddressService().findEntityById(resultSet.getLong("Address_id")));
-            user.setOrder(new OrderService().findEntityById(resultSet.getLong("Order_id")));
+            user.setAddresses(new AddressDaoImpl().findEntityById(resultSet.getLong("Address_id")));
+            user.setOrder(new OrderDaoImpl().findEntityById(resultSet.getLong("Order_id")));
         }
         catch (SQLException e){
             e.printStackTrace();

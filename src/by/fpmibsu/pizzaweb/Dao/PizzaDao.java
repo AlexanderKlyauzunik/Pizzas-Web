@@ -1,6 +1,6 @@
-package src.by.fpmibsu.pizzaweb.dao;
+package src.by.fpmibsu.pizzaweb.Dao;
 
-import src.by.fpmibsu.pizzaweb.entity.Pizza;
+import src.by.fpmibsu.pizzaweb.Entity.Pizza;
 
 import java.util.List;
 

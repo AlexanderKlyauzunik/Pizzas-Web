@@ -1,4 +1,4 @@
-package src.by.fpmibsu.pizzaweb.entity;
+package src.by.fpmibsu.pizzaweb.Entity;
 import java.util.Objects;
 
 public class Drink extends Entity{

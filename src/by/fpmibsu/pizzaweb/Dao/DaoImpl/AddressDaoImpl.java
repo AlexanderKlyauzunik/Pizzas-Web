@@ -1,15 +1,15 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.AddressDao;
-import src.by.fpmibsu.pizzaweb.entity.Address;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.AddressDao;
+import src.by.fpmibsu.pizzaweb.Entity.Address;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AddressService extends Util implements AddressDao {
+public class AddressDaoImpl extends Util implements AddressDao {
      Connection connection = getConnection();
 
     private static final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Address\"(\"Street\", \"Entrance\", \"HouseNumber\", \"FlatNumber\")\n" +

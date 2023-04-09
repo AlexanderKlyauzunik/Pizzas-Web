@@ -1,22 +1,20 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.DrinkDao;
-import src.by.fpmibsu.pizzaweb.entity.Drink;
-import src.by.fpmibsu.pizzaweb.entity.Pizza;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.RoleDao;
+import src.by.fpmibsu.pizzaweb.Entity.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class DrinkService  extends Util implements DrinkDao {
+public class RoleDaoImpl extends Util implements RoleDao {
     Connection connection = getConnection();
     @Override
-    public List<Drink> findAll() {
-        final String SQL_SELECT_ALL = "SELECT \"DrinkID\", \"Name\", \"Capacity\", \"Price\"\n" +
-                "\tFROM public.\"Drink\";";
-        List<Drink> drinksList = new ArrayList<>();
+    public List<Role> findAll() {
+        final String SQL_SELECT_ALL = "SELECT \"RoleID\", \"Name\"\n" +
+                "\tFROM public.\"Role\";";
+        List<Role> roleList = new ArrayList<>();
         Statement statement = null;
         try {
             statement = connection.createStatement();
@@ -24,13 +22,11 @@ public class DrinkService  extends Util implements DrinkDao {
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL);
 
             while (resultSet.next()) {
-                Drink drink = new Drink();
-                drink.setDrinkID(resultSet.getLong("DrinkID"));
-                drink.setName(resultSet.getString("Name"));
-                drink.setCapacity(resultSet.getDouble("Capacity"));
-                drink.setPrice(resultSet.getDouble("Price"));
+                Role role = new Role();
+                role.setId(resultSet.getLong("RoleID"));
+                role.setRole(resultSet.getString("Name"));
 
-                drinksList.add(drink);
+                roleList.add(role);
             }
         }
         catch (SQLException e){
@@ -40,25 +36,21 @@ public class DrinkService  extends Util implements DrinkDao {
             close(statement);
             close(connection);
         }
-        return drinksList;
+        return roleList;
     }
 
     @Override
-    public Drink findEntityById(Long id) {
+    public Role findEntityById(Long id) {
         PreparedStatement preparedStatement = null;
-        Drink drink = new Drink();
-        final String SQL_SELECT_BY_ID = "SELECT \"DrinkID\", \"Name\", \"Capacity\", \"Price\"\n" +
-                "\tFROM public.\"Drink\" WHERE \"DrinkID\" = ?;";
+        Role role = new Role();
+        final String SQL_SELECT_BY_ID = "SELECT \"RoleID\", \"Name\"\n" +
+                "\tFROM public.\"Role\" WHERE \"RoleID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            drink.setId(resultSet.getLong("DrinkID"));
-            drink.setName(resultSet.getString("Name"));
-            drink.setCapacity(resultSet.getDouble("Capacity"));
-            drink.setPrice(resultSet.getDouble("Price"));
-
-            preparedStatement.executeUpdate();
+            role.setId(resultSet.getLong("RoleID"));
+            role.setRole(resultSet.getString("Name"));
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -67,18 +59,18 @@ public class DrinkService  extends Util implements DrinkDao {
             close(preparedStatement);
             close(connection);
         }
-        return drink;
+        return role;
     }
 
     @Override
-    public boolean delete(Drink drink) {
-        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Drink\"\n" +
+    public boolean delete(Role role) {
+        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Role\"\n" +
                 "\tWHERE \"Name\" = ?;";
         PreparedStatement preparedStatement = null;
 
         try{
             preparedStatement = connection.prepareStatement(SQL_DELETE_BY_ID);
-            preparedStatement.setString(1,drink.getName());
+            preparedStatement.setString(1,role.getRole());
 
             preparedStatement.executeUpdate();
             return true;
@@ -95,8 +87,8 @@ public class DrinkService  extends Util implements DrinkDao {
 
     @Override
     public boolean delete(Long id) {
-        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Drink\"\n" +
-                "\tWHERE \"DrinkID\" = ?;";
+        final String SQL_DELETE_BY_ID = "DELETE FROM public.\"Role\"\n" +
+                "\tWHERE \"RoleID\" = ?;";
         PreparedStatement preparedStatement = null;
 
         try{
@@ -117,18 +109,16 @@ public class DrinkService  extends Util implements DrinkDao {
     }
 
     @Override
-    public boolean create(Drink drink) {
-        final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Drink\"(\n" +
-                "\t\"Name\", \"Capacity\", \"Price\")\n" +
-                "\tVALUES (?, ?, ?);";
+    public boolean create(Role role) {
+        final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"Role\"(\n" +
+                "\t\"Name\")\n" +
+                "\tVALUES (?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
-            preparedStatement.setString(1,drink.getName());
-            preparedStatement.setDouble(2,drink.getCapacity());
-            preparedStatement.setDouble(3,drink.getPrice());
+            preparedStatement.setString(1,role.getRole());
 
             preparedStatement.executeUpdate();
             return true;
@@ -144,19 +134,17 @@ public class DrinkService  extends Util implements DrinkDao {
     }
 
     @Override
-    public void update(Drink drink) {
-        final String SQL_UPDATE = "UPDATE public.\"Drink\"\n" +
-                "\tSET  \"Name\"=?, \"Capacity\"=?, \"Price\"=?\n" +
-                "\tWHERE \"DrinkID\" = ?;";
+    public void update(Role role) {
+        final String SQL_UPDATE = "UPDATE public.\"Role\"\n" +
+                "\tSET \"Name\"=?\n" +
+                "\tWHERE \"RoleID\" = ?;";
 
         PreparedStatement preparedStatement = null;
         try{
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
 
-            preparedStatement.setString(1,drink.getName());
-            preparedStatement.setDouble(2,drink.getCapacity());
-            preparedStatement.setDouble(3,drink.getPrice());
-            preparedStatement.setLong(4,drink.getDrinkID());
+            preparedStatement.setString(1,role.getRole());
+            preparedStatement.setLong(2,role.getId());
 
             preparedStatement.executeUpdate();
         }

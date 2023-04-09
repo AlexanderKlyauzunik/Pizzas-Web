@@ -1,4 +1,4 @@
-package src.by.fpmibsu.pizzaweb.entity;
+package src.by.fpmibsu.pizzaweb.Entity;
 
 public class Role extends Entity{
     public void setRole(String role) {

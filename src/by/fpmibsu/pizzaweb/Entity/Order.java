@@ -1,8 +1,7 @@
-package src.by.fpmibsu.pizzaweb.entity;
+package src.by.fpmibsu.pizzaweb.Entity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.Objects;
 
 public class Order extends Entity{

@@ -1,15 +1,15 @@
-package src.by.fpmibsu.pizzaweb.service;
+package src.by.fpmibsu.pizzaweb.Dao.DaoImpl;
 
-import src.by.fpmibsu.pizzaweb.bl.Util;
-import src.by.fpmibsu.pizzaweb.dao.VacancyDao;
-import src.by.fpmibsu.pizzaweb.entity.*;
+import src.by.fpmibsu.pizzaweb.Services.Util;
+import src.by.fpmibsu.pizzaweb.Dao.VacancyDao;
+import src.by.fpmibsu.pizzaweb.Entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class VacancyService extends Util implements VacancyDao {
+public class VacancyDaoImpl extends Util implements VacancyDao {
     Connection connection = getConnection();
     @Override
     public List<Vacancy> findAll() {
@@ -39,7 +39,7 @@ public class VacancyService extends Util implements VacancyDao {
                     ResultSet resultSet1 = statement1.executeQuery(SQL_INNER);
                     LinkedList<User> users = new LinkedList<>();
                     while (resultSet1.next()) {
-                        users.add(new UserService().findEntityById(resultSet1.getLong("UserID")));
+                        users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
                     }
                     vacancy.setUser(users);
                 }
@@ -88,7 +88,7 @@ public class VacancyService extends Util implements VacancyDao {
             LinkedList<User> users = new LinkedList<>();
 
             while (resultSet1.next())
-                users.add(new UserService().findEntityById(resultSet1.getLong("UserID")));
+                users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
 
             vacancy.setUser(users);
         }

@@ -1,6 +1,6 @@
-package src.by.fpmibsu.pizzaweb.dao;
+package src.by.fpmibsu.pizzaweb.Dao;
 
-import src.by.fpmibsu.pizzaweb.entity.Vacancy;
+import src.by.fpmibsu.pizzaweb.Entity.Vacancy;
 
 import java.util.List;
 
