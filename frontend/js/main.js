@@ -164,7 +164,8 @@ drink_buskets.forEach(element => {
         localStorage["quantity-drink-" + element_id] = parseInt(localStorage["quantity-drink-" + element_id]) + 1;
         localStorage["drink-name-" + element_id] = pizza.querySelector(".drink-card-title").textContent;
         localStorage["drink-image-" + element_id] = drink_images[element_id - 1];
-        localStorage["price-drink-" + element_id] = parseFloat(document.getElementById(price_name).textContent.substring(0, index)).toFixed(2);
+        localStorage["price-drink-" + element_id] = parseFloat(document.getElementById(price_name).textContent.substring(0, index)).toFixed(2)
+         * localStorage["quantity-drink-" + element_id];
 
         busket_quantity.textContent = new_quantity;
     });
