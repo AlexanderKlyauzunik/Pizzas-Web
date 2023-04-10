@@ -367,19 +367,25 @@ textarea {
 html {
     box-sizing: border-box;
     overflow-x: hidden;
+    height: 100%;
 }
 
 *, *::before, *::after {
     box-sizing: inherit;
 }
 
+
+
 body {
     height: 100%;
     background: linear-gradient(90deg, #FFF1C9 0%, #FFE557 50%, #FFF1C7 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .wrapper {
-    max-width: 1340px;
+    width: 1340px;
     margin: 0 auto;
 }
 
@@ -571,6 +577,7 @@ body {
 
 
 .menu {
+    width: 100%;
     margin-top: 120px;
     display: flex;
     flex-direction: row;
@@ -926,6 +933,7 @@ body {
 
 
 .footer {
+    flex: 0 0 auto;
     width: 100%;
     height: fit-content;
     margin-top: 30px;
