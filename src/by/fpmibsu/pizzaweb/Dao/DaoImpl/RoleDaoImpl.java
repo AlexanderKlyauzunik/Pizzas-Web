@@ -46,11 +46,14 @@ public class RoleDaoImpl extends Util implements RoleDao {
         final String SQL_SELECT_BY_ID = "SELECT \"RoleID\", \"Name\"\n" +
                 "\tFROM public.\"Role\" WHERE \"RoleID\" = ?;";
         try {
+
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            role.setId(resultSet.getLong("RoleID"));
-            role.setRole(resultSet.getString("Name"));
+            while (resultSet.next()) {
+                role.setId(resultSet.getLong("RoleID"));
+                role.setRole(resultSet.getString("Name"));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

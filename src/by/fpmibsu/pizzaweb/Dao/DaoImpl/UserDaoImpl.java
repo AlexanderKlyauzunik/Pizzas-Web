@@ -124,14 +124,14 @@ public class UserDaoImpl extends Util implements UserDao {
 
     @Override
     public boolean create(User user) {
-        final String SQL_CREATE_ADDRESS = "INSERT INTO public.\"User\"(\n" +
+        final String SQL_CREATE_USER = "INSERT INTO public.\"User\"(\n" +
                 "\t\"Role_id\", \"First_SecondName\", \"Password\", \"Email\", \"Phone_number\", \"Address_id\", \"Order_id\")\n" +
                 "\tVALUES (?, ?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
+            preparedStatement = connection.prepareStatement(SQL_CREATE_USER);
             preparedStatement.setLong(1,user.getRole().getId());
             preparedStatement.setString(2,user.getFirstName_lastName());
             preparedStatement.setString(3,user.getPassword());

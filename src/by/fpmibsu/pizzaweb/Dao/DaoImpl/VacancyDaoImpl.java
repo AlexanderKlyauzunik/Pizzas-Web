@@ -167,15 +167,16 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
             preparedStatement.setString(3,vacancy.getName());
 
             LinkedList<User> users = vacancy.getUser();
-
+            preparedStatement.executeUpdate();
+            Long index = this.getLastID();
             for (User user : users) {
                 preparedStatement1 = connection.prepareStatement(SQL_INNER);
                 preparedStatement1.setLong(1, vacancy.getId());
-                preparedStatement1.setLong(2, user.getUserId());
+                preparedStatement1.setLong(2, index);
                 preparedStatement1.executeUpdate();
             }
 
-            preparedStatement.executeUpdate();
+
             return true;
         }
         catch (SQLException e){
@@ -222,5 +223,27 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
     @Override
     public List<Vacancy> findBySalary(Double salary) {
         return null;
+    }
+
+    private Long getLastID () {
+        final String SQL_LAST_ID = "SELECT \"UserID\"\n" +
+                "\tFROM public.\"User\" ORDER BY \"UserID\" DESC LIMIT 1;";
+        PreparedStatement preparedStatement = null;
+        Long index = 0L;
+        try{
+            preparedStatement = connection.prepareStatement(SQL_LAST_ID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                index = resultSet.getLong("OrderID");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+        }
+        return index;
     }
 }
