@@ -450,6 +450,7 @@ body {
     align-items: center;
     padding: 0px;
     gap: 20px;
+    transition: 0.2s;
 }
 
 .header-logo-text {
@@ -464,10 +465,10 @@ body {
 
 .header-logo-link {
     text-decoration: none;
-    transition: 0.3s;
+    
 }
 
-.header-logo-link:hover {
+.header-logo-box:hover {
     transform: scale(1.05);
 }
 
@@ -804,6 +805,11 @@ label {
     background: #E13333;
     border-radius: 50px;
     border: none;
+    transition: 0.2s;
+}
+
+.order-button:hover {
+    transform: scale(1.05);
 }
 
 .order-button-text {

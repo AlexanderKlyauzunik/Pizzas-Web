@@ -591,6 +591,10 @@ body {
     transform: scale(1.05);
 }
 
+.profile-button-orig:hover {
+    transform: scale(1.05);
+}
+
 .profile-button-text {
     padding: 10px;
     font-family: 'Montserrat';
@@ -815,6 +819,11 @@ body {
     background: #E13333;
     border-radius: 50px;
     border: none;
+    transition: 0.3s;
+}
+
+.order-button:hover {
+    transform: scale(1.05);
 }
 
 .order-button-text {
@@ -840,6 +849,10 @@ body {
     text-decoration-line: underline;
 
     color: #000000;
+}
+
+.change-order:hover {
+    opacity: 0.8;
 }
 
 
@@ -880,6 +893,10 @@ body {
     text-decoration-line: underline;
 
     color: #000000;
+}
+
+.change-address:hover {
+    opacity: 0.8;
 }
 
 .address-header {

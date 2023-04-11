@@ -21,9 +21,20 @@ let drink_images = [
     "../img/drinks/water.png"
 ]
 
+let profileButton = document.querySelector('.profile-button-text-orig');
+
 function loadData() {
     var busket = document.querySelector(".busket-button-text-orig");
     var busket_quantity = document.querySelector(".busket-button-quantity-text");
+    if (typeof localStorage["is-logged-in"] === 'undefined') {
+        localStorage["is-logged-in"] = 'false';
+    }
+    if (localStorage["is-logged-in"] == 'true') {
+        profileButton.textContent = 'Личный кабинет';
+    }
+    else if (localStorage["is-logged-in"] == 'false') {
+        profileButton.textContent = 'Войти';
+    }
     if (typeof localStorage["busket-price"] === 'undefined') {
         localStorage["busket-price"] = '0.00';
     }
@@ -182,38 +193,50 @@ element1.forEach(element => {
     })
 });
 
-// (function() {
-//     const loginButton = document.querySelector('.profile-button-orig');
-//     const loginForm = document.querySelector('.login-box');
-//     const toggleForm = function () {
-//         loginForm.classList.toggle("open");
-//     }
-    
-//     loginButton.addEventListener("click", function (e) {
-//         e.stopPropagation();
-//         toggleForm();
-//     });
+(function () {
+    const loginButton = document.querySelector('.profile-button-orig');
+    const loginForm = document.querySelector('.login-box');
+    const toggleForm = function () {
+        loginForm.classList.toggle("open");
+    }
 
-//     document.addEventListener("click", function (e) {
-//         const target = e.target;
-//         const its_form = target == loginForm || loginForm.contains(target);
-//         const its_button = target == loginButton;
-//         const form_is_active = loginForm.classList.contains("open");
-    
-//         if (!its_form && !its_button && form_is_active) {
-//             toggleForm();
-//         }
-//     });
-// }());
+    loginButton.addEventListener("click", function (e) {
+        if (localStorage["is-logged-in"] == 'false') {
+            e.stopPropagation();
+            toggleForm();
+        }
+        else {
+            let loginButton = document.querySelector(".profile-button-orig");
+            let loginText = document.querySelector(".profile-button-text-orig");
+            window.open("./frontend/html/profile.html", "_self");
+        }
+    });
 
-let loginButton = document.querySelector(".profile-button-orig");
-let loginText = document.querySelector(".profile-button-text-orig");
+    document.addEventListener("click", function (e) {
+        const target = e.target;
+        const its_form = target == loginForm || loginForm.contains(target);
+        const its_button = target == loginButton;
+        const form_is_active = loginForm.classList.contains("open");
 
-loginButton.addEventListener("click", function() {
-    window.open("./frontend/html/profile.html");
-});
+        if (!its_form && !its_button && form_is_active) {
+            toggleForm();
+        }
+    });
+}());
+
+(function () {
+    const button = document.querySelector('.login-sign-in-button');
+    button.addEventListener("click", function () {
+        localStorage["is-logged-in"] = 'true';
+        profileButton.textContent = 'Личный кабинет';
+    });
+}());
+
 
 let loginFlag = 0;
+
+document.querySelector('#login-form-phone-label').style.display = 'none';
+document.querySelector('#login-form-phone').style.display = 'none';
 
 function registerRefClicked() {
     if (!loginFlag) {
@@ -221,6 +244,8 @@ function registerRefClicked() {
         document.querySelectorAll('.login-element').forEach(button => {
             button.style.display = 'none';
         });
+        document.querySelector('#login-form-phone-label').style.display = 'block';
+        document.querySelector('#login-form-phone').style.display = 'block';
         document.querySelector('.login-sign-in-button').textContent = 'Зарегистрироваться';
         document.querySelector('.login-form-ref').style.display = 'none';
         document.querySelector('.login-form-register-text').textContent = 'Уже есть аккаунт?';
@@ -233,11 +258,13 @@ function registerRefClicked() {
         document.querySelectorAll('.login-element').forEach(button => {
             button.style.display = 'block';
         });
+        document.querySelector('#login-form-phone-label').style.display = 'none';
+        document.querySelector('#login-form-phone').style.display = 'none';
         document.querySelector('.login-sign-in-button').textContent = 'Войти';
         document.querySelector('.login-form-ref').style.display = 'block';
         document.querySelector('.login-form-register-text').textContent = "Еще нет аккаунта?";
         document.querySelector('.login-form-register-ref').textContent = 'Зарегистрироваться';
-        document.querySelector('.login-box').style.marginTop = '-210px';
+        document.querySelector('.login-box').style.marginTop = '-150px';
         loginFlag = 0;
     }
 }

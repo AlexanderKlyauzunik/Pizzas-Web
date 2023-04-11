@@ -35,9 +35,7 @@
                     </div>
                     
                     <button class="profile-button-orig">
-                        <p class="profile-button-text-orig">
-                            Личный кабинет
-                        </p>
+                        <p class="profile-button-text-orig">Войти</p>
                     </button>
                 </div>
 
@@ -51,14 +49,14 @@
                 Войти в аккаунт
             </h3>
 
-            <form action="" class="login-form">             
-                <label for="login-form-e-mail" >E-mail</label>
+            <form action="" class="login-form"> 
+                <label for="login-form-phone" id="login-form-phone-label">Телефон</label>
+                <input type="text" class="login-form-input" id="login-form-phone">            
+                <label for="login-form-e-mail">E-mail</label>
                 <input type="text" class="login-form-input" id="login-form-e-mail">
                 <label for="login-form-password">Пароль</label>
                 <input type="text" class="login-form-input" id="login-form-password">
-                <button type="submit" class="login-sign-in-button">
-                    Войти
-                </button>
+                <button type="submit" class="login-sign-in-button">Войти</button>
                 <a href="" class="login-form-ref">
                     Забыли ваш пароль?
                 </a>
@@ -99,8 +97,8 @@
                 <p class="address-header">Адрес доставки:</p>
 
                 <ul type="disc" class="info-text-vacancy">
-                    <li>Текущий адрес</li>
-                    <li><a href="../html/profile.html" class="change-address">Изменить адрес</a></li>
+                    <li class="current-address">Текущий адрес</li>
+                    <li class="point-change-address"><a href="../html/profile.html" class="change-address">Изменить адрес</a></li>
                 </ul>
 
                 <p class="address-header">Способ оплаты:</p>
