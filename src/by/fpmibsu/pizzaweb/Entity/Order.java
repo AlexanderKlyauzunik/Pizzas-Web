@@ -12,7 +12,16 @@ public class Order extends Entity{
     private String paymentMethod;
 
     public Order(){}
-    public Order(Long orderID,ArrayList<Pizza> pizzas,ArrayList<Drink> drinks, Boolean status, Date deliveryDate, String paymentMethod) {
+
+    public Order(ArrayList<Drink> drinks, ArrayList<Pizza> pizzas, Boolean status, Date deliveryDate, String paymentMethod) {
+        this.drinks = drinks;
+        this.pizzas = pizzas;
+        this.status = status;
+        this.deliveryDate = deliveryDate;
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Order(Long orderID, ArrayList<Pizza> pizzas, ArrayList<Drink> drinks, Boolean status, Date deliveryDate, String paymentMethod) {
         super(orderID);
         this.pizzas = pizzas;
         this.drinks = drinks;

@@ -12,7 +12,17 @@ public class Pizza extends Entity{
     private Double weight;
     
     public Pizza(){}
-    public Pizza(Long pizzaId, String name, String ingredients, Boolean size, Boolean doughType, Double price,Double weight) {
+
+    public Pizza(String name, String ingredients, Boolean size, Boolean doughType, Double price, Double weight) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.size = size;
+        this.doughType = doughType;
+        this.price = price;
+        this.weight = weight;
+    }
+
+    public Pizza(Long pizzaId, String name, String ingredients, Boolean size, Boolean doughType, Double price, Double weight) {
         super(pizzaId);
         this.weight = weight;
         this.name = name;
