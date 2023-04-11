@@ -1,25 +1,26 @@
 package src.by.fpmibsu.pizzaweb.Entity;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Objects;
 
 public class Vacancy extends Entity{
 
-    private LinkedList<User> user;
+    private HashSet<User> user;
     private Double salary;
     private Integer trial;
     private String name;
 
     public Vacancy(){}
 
-    public Vacancy(LinkedList<User> user, Double salary, Integer trial, String name) {
+    public Vacancy(HashSet<User> user, Double salary, Integer trial, String name) {
         this.user = user;
         this.salary = salary;
         this.trial = trial;
         this.name = name;
     }
 
-    public Vacancy(Long vacancyID, LinkedList<User> user, Double salary, Integer trial, String name) {
+    public Vacancy(Long vacancyID, HashSet<User> user, Double salary, Integer trial, String name) {
         super(vacancyID);
         this.user = user;
         this.salary = salary;
@@ -35,11 +36,11 @@ public class Vacancy extends Entity{
         this.setId(vacancyID);
     }
 
-    public LinkedList<User> getUser() {
+    public HashSet<User> getUser() {
         return user;
     }
 
-    public void setUser(LinkedList<User> user) {
+    public void setUser(HashSet<User> user) {
         this.user = user;
     }
 

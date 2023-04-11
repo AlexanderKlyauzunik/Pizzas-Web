@@ -10,8 +10,7 @@ import java.util.List;
 
 public class Main{
         public static void main(String[] args) {
-            User user = new User(new AddressDaoImpl().findEntityById(5L),new OrderDaoImpl().findEntityById(1L),"Ivan Ivanov","fsf","dsvjdsbvj","+375",new RoleDaoImpl().findEntityById(2L));
-            UserDaoImpl userDao = new UserDaoImpl();
-            userDao.create(user);
+
+
     }
 }

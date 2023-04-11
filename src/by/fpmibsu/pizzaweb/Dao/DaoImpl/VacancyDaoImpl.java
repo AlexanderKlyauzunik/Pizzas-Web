@@ -6,6 +6,7 @@ import src.by.fpmibsu.pizzaweb.Entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
                     statement1 = connection.createStatement();
 
                     ResultSet resultSet1 = statement1.executeQuery(SQL_INNER);
-                    LinkedList<User> users = new LinkedList<>();
+                    HashSet<User> users = new HashSet<>();
                     while (resultSet1.next()) {
                         users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
                     }
@@ -86,7 +87,7 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
                 vacancy.setTrial(resultSet.getInt("Trial"));
                 vacancy.setName(resultSet.getString("Name"));
 
-                LinkedList<User> users = new LinkedList<>();
+                HashSet<User> users = new HashSet<>();
 
                 while (resultSet1.next())
                     users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
@@ -166,7 +167,7 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
             preparedStatement.setInt(2,vacancy.getTrial());
             preparedStatement.setString(3,vacancy.getName());
 
-            LinkedList<User> users = vacancy.getUser();
+            HashSet<User> users = vacancy.getUser();
             preparedStatement.executeUpdate();
             Long index = this.getLastID();
             for (User user : users) {
@@ -175,7 +176,6 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
                 preparedStatement1.setLong(2, index);
                 preparedStatement1.executeUpdate();
             }
-
 
             return true;
         }
@@ -221,8 +221,26 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> findBySalary(Double salary) {
-        return null;
+    public void AddToMMUserVacancy(Long userId, Long vacancyId) {
+        final String SQL_LAST_ID = "INSERT INTO public.\"User_Vacancy\"(\n" +
+                "\t\"VacancyID\", \"UserID\")\n" +
+                "\tVALUES (?, ?);";
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(SQL_LAST_ID);
+            preparedStatement.setLong(1,vacancyId);
+            preparedStatement.setLong(2,userId);
+
+            preparedStatement.executeUpdate();
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
     }
 
     private Long getLastID () {
@@ -246,4 +264,6 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
         }
         return index;
     }
+
+
 }
