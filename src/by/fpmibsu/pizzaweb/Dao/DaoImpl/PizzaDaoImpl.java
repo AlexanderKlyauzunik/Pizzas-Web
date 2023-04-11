@@ -183,4 +183,38 @@ public class PizzaDaoImpl extends Util implements PizzaDao {
     public List<Pizza> findInRange(Double lowerBound, Double upperBound) {
         return null;
     }
+
+    @Override
+    public Pizza findByNameTypeDroughSize(String name, Boolean typeDrough, Boolean size) {
+        PreparedStatement preparedStatement = null;
+        Pizza pizza = new Pizza();
+        final String SQL_SELECT_BY_NAME_TYPE_SIZE = "SELECT \"PizzaID\", \"Name\", \"Ingredients\", \"TypeDrough\", \"BasicWeight\", \"Price\", \"Size\"\n" +
+                "\tFROM public.\"Pizza\" WHERE \"Name\" = ? AND \"TypeDrough\" = ? AND \"Size\" = ?;";
+
+        try {
+            preparedStatement = connection.prepareStatement(SQL_SELECT_BY_NAME_TYPE_SIZE);
+            preparedStatement.setString(1,name);
+            preparedStatement.setBoolean(2,typeDrough);
+            preparedStatement.setBoolean(3,size);
+
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                pizza.setId(resultSet.getLong("PizzaID"));
+                pizza.setName(resultSet.getString("Name"));
+                pizza.setIngredients(resultSet.getString("Ingredients"));
+                pizza.setDoughType(resultSet.getBoolean("TypeDrough"));
+                pizza.setWeight(resultSet.getDouble("BasicWeight"));
+                pizza.setWeight(resultSet.getDouble("Price"));
+                pizza.setSize(resultSet.getBoolean("Size"));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return pizza;
+    }
 }

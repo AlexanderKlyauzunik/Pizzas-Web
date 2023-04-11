@@ -168,4 +168,33 @@ public class DrinkDaoImpl extends Util implements DrinkDao {
             close(connection);
         }
     }
+
+    @Override
+    public Drink findByNameCapacity(String name, Double capacity) {
+        PreparedStatement preparedStatement = null;
+        Drink drink = new Drink();
+        final String SQL_SELECT_BY_NAME_CAPACITY = "SELECT \"DrinkID\", \"Name\", \"Capacity\", \"Price\"\n" +
+                "\tFROM public.\"Drink\" WHERE \"Name\" = ? AND \"Capacity\" = ?;";
+        try {
+            preparedStatement = connection.prepareStatement(SQL_SELECT_BY_NAME_CAPACITY);
+            preparedStatement.setString(1,name);
+            preparedStatement.setDouble(2,capacity);
+            ResultSet resultSet= preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                drink.setId(resultSet.getLong("DrinkID"));
+                drink.setName(resultSet.getString("Name"));
+                drink.setCapacity(resultSet.getDouble("Capacity"));
+                drink.setPrice(resultSet.getDouble("Price"));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+            close(connection);
+        }
+        return drink;
+    }
 }

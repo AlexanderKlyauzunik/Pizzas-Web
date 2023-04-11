@@ -12,8 +12,8 @@ import java.util.List;
 public class AddressDaoImpl extends Util implements AddressDao {
      Connection connection = getConnection();
     public List<Address> findAllByStreet(String pattern) {
-        final String SQL_SELECT_BY_STREET = "SELECT \"AddressID\", \"StreetName\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\" \n" +
-                "WHERE \"Street\" = ?;";
+        final String SQL_SELECT_BY_STREET = "SELECT \"AddressID\", \"StreetName\", \"Entrance\", \"HouseNumber\", \"FlatNumber\" FROM public.\"Address\"\n" +
+                "                WHERE \"StreetName\" = ?;";
         List<Address> addressList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         try {
