@@ -1,9 +1,32 @@
+
+let profileButton = document.querySelector('.profile-button-text-orig');
+
 function loadData() {
     let busket = document.querySelector(".busket-button-text");
     if (typeof localStorage["busket-price"] === 'undefined') {
         localStorage["busket-price"] = '0.00';
     }
     busket.textContent = localStorage["busket-price"] + " BYN";
+
+    if (typeof localStorage["is-logged-in"] === 'undefined') {
+        localStorage["is-logged-in"] = 'false';
+    }
+    if (localStorage["is-logged-in"] == 'true') {
+        profileButton.textContent = 'Личный кабинет';
+    }
+    else if (localStorage["is-logged-in"] == 'false') {
+        profileButton.textContent = 'Войти';
+    }
+
+    if (localStorage["is-logged-in"] == 'false') {
+        document.querySelector('.current-address').textContent = 'Для начала войдите в аккаунт или зарегистрируйтесь';
+        document.querySelector('.point-change-address').style.display = 'none';
+    }
+    else if (localStorage["is-logged-in"] == 'true') {
+        document.querySelector('.current-address').textContent = 'Текущий адрес';
+        document.querySelector('.point-change-address').style.display = 'block';
+    }
+
 
     let next_elem = document.querySelector(".order-refs");
     for (let i = 1; i <= 6; i++) {
@@ -132,15 +155,6 @@ element1.forEach(element => {
     })
 });
 
-
-
-let loginButton = document.querySelector(".profile-button-orig");
-let loginText = document.querySelector(".profile-button-text-orig");
-
-loginButton.addEventListener("click", function() {
-    window.open("../html/profile.html");
-});
-
 //
 
 let total_price = 0;
@@ -194,3 +208,80 @@ order_item.forEach(element => {
         total_button.textContent = localStorage["busket-price"] + " BYN";
     });
 });
+
+
+(function () {
+    const loginButton = document.querySelector('.profile-button-orig');
+    const loginForm = document.querySelector('.login-box');
+    const toggleForm = function () {
+        loginForm.classList.toggle("open");
+    }
+
+    loginButton.addEventListener("click", function (e) {
+        if (localStorage["is-logged-in"] == 'false') {
+            e.stopPropagation();
+            toggleForm();
+        }
+        else {
+            let loginButton = document.querySelector(".profile-button-orig");
+            let loginText = document.querySelector(".profile-button-text-orig");
+            window.open("../html/profile.html", "_self");
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        const target = e.target;
+        const its_form = target == loginForm || loginForm.contains(target);
+        const its_button = target == loginButton;
+        const form_is_active = loginForm.classList.contains("open");
+
+        if (!its_form && !its_button && form_is_active) {
+            toggleForm();
+        }
+    });
+}());
+
+(function () {
+    const button = document.querySelector('.login-sign-in-button');
+    button.addEventListener("click", function () {
+        localStorage["is-logged-in"] = 'true';
+        profileButton.textContent = 'Личный кабинет';
+    });
+}());
+
+
+let loginFlag = 0;
+
+document.querySelector('#login-form-phone-label').style.display = 'none';
+document.querySelector('#login-form-phone').style.display = 'none';
+
+function registerRefClicked() {
+    if (!loginFlag) {
+        document.querySelector('.login-title').textContent = 'Создать аккаунт';
+        document.querySelectorAll('.login-element').forEach(button => {
+            button.style.display = 'none';
+        });
+        document.querySelector('#login-form-phone-label').style.display = 'block';
+        document.querySelector('#login-form-phone').style.display = 'block';
+        document.querySelector('.login-sign-in-button').textContent = 'Зарегистрироваться';
+        document.querySelector('.login-form-ref').style.display = 'none';
+        document.querySelector('.login-form-register-text').textContent = 'Уже есть аккаунт?';
+        document.querySelector('.login-form-register-ref').textContent = 'Войти';
+        document.querySelector('.login-box').style.marginTop = '-210px';
+        loginFlag = 1;
+    }
+    else if (loginFlag) {
+        document.querySelector('.login-title').textContent = 'Войти в аккаунт';
+        document.querySelectorAll('.login-element').forEach(button => {
+            button.style.display = 'block';
+        });
+        document.querySelector('#login-form-phone-label').style.display = 'none';
+        document.querySelector('#login-form-phone').style.display = 'none';
+        document.querySelector('.login-sign-in-button').textContent = 'Войти';
+        document.querySelector('.login-form-ref').style.display = 'block';
+        document.querySelector('.login-form-register-text').textContent = "Еще нет аккаунта?";
+        document.querySelector('.login-form-register-ref').textContent = 'Зарегистрироваться';
+        document.querySelector('.login-box').style.marginTop = '-150px';
+        loginFlag = 0;
+    }
+}
