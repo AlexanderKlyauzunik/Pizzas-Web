@@ -111,7 +111,7 @@ public class OrderDaoImpl extends Util implements OrderDao {
                 ArrayList<Pizza> pizzas = new ArrayList<>();
 
                 while (resultSet2.next())
-                    pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaId")));
+                    pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaID")));
 
                 while (resultSet1.next())
                     drinks.add(new DrinkDaoImpl().findEntityById(resultSet1.getLong("DrinkID")));
@@ -177,15 +177,15 @@ public class OrderDaoImpl extends Util implements OrderDao {
         try {
             preparedStatement = connection.prepareStatement(SQL_CREATE_ADDRESS);
 
-
             preparedStatement.setBoolean(1,order.getStatus());
-            preparedStatement.setDate(2, (Date) order.getDeliveryDate());
+            preparedStatement.setDate(2,  order.getDeliveryDate());
             preparedStatement.setString(3,order.getPaymentMethod());
-
+            preparedStatement.executeUpdate();
+            Long index = this.getLastID();
             ArrayList<Drink> drinks = order.getDrinks();
             for (Drink drink : drinks) {
                 preparedStatement1 = connection.prepareStatement(SQL_INNER_DRINK);
-                preparedStatement1.setLong(1, order.getId());
+                preparedStatement1.setLong(1, index);
                 preparedStatement1.setLong(2, drink.getDrinkID());
                 preparedStatement1.executeUpdate();
             }
@@ -193,12 +193,12 @@ public class OrderDaoImpl extends Util implements OrderDao {
             ArrayList<Pizza> pizzas = order.getPizzas();
             for (Pizza pizza : pizzas) {
                 preparedStatement2 = connection.prepareStatement(SQL_INNER_PIZZA);
-                preparedStatement2.setLong(1,order.getId());
-                preparedStatement2.setLong(2,pizza.getPizzaId());
+                preparedStatement2.setLong(1,pizza.getPizzaId());
+                preparedStatement2.setLong(2,index);
                 preparedStatement2.executeUpdate();
             }
 
-            preparedStatement.executeUpdate();
+
             return true;
         }
         catch (SQLException e){
@@ -222,7 +222,7 @@ public class OrderDaoImpl extends Util implements OrderDao {
             preparedStatement = connection.prepareStatement(SQL_UPDATE);
 
             preparedStatement.setBoolean(1,order.getStatus());
-            preparedStatement.setDate(2, (Date) order.getDeliveryDate());
+            preparedStatement.setDate(2,  order.getDeliveryDate());
             preparedStatement.setString(3,order.getPaymentMethod());
             preparedStatement.setLong(4,order.getId());
 
@@ -237,5 +237,27 @@ public class OrderDaoImpl extends Util implements OrderDao {
             close(preparedStatement);
             close(connection);
         }
+    }
+
+    private Long getLastID () {
+        final String SQL_LAST_ID = "SELECT \"OrderID\"\n" +
+                "\tFROM public.\"Order\" ORDER BY \"OrderID\" DESC LIMIT 1;";
+        PreparedStatement preparedStatement = null;
+        Long index = 0L;
+        try{
+            preparedStatement = connection.prepareStatement(SQL_LAST_ID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                index = resultSet.getLong("OrderID");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        finally {
+            close(preparedStatement);
+        }
+        return index;
     }
 }

@@ -1,7 +1,7 @@
 package src.by.fpmibsu.pizzaweb.Entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Order extends Entity{
