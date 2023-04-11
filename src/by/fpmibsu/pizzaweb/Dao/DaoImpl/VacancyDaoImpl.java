@@ -74,23 +74,25 @@ public class VacancyDaoImpl extends Util implements VacancyDao {
                 "\tFROM public.\"User_Vacancy\" WHERE \"VacancyID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
-            preparedStatement.setLong(1,id);
+            preparedStatement.setLong(1, id);
             preparedStatement1 = connection.prepareStatement(SQL_INNER);
-            preparedStatement1.setLong(1,id);
+            preparedStatement1.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSet resultSet1 = preparedStatement1.executeQuery();
 
-            vacancy.setId(resultSet.getLong("OrderID"));
-            vacancy.setSalary(resultSet.getDouble("Salary"));
-            vacancy.setTrial(resultSet.getInt("Trial"));
-            vacancy.setName(resultSet.getString("Name"));
+            while (resultSet.next()) {
+                vacancy.setId(resultSet.getLong("OrderID"));
+                vacancy.setSalary(resultSet.getDouble("Salary"));
+                vacancy.setTrial(resultSet.getInt("Trial"));
+                vacancy.setName(resultSet.getString("Name"));
 
-            LinkedList<User> users = new LinkedList<>();
+                LinkedList<User> users = new LinkedList<>();
 
-            while (resultSet1.next())
-                users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
+                while (resultSet1.next())
+                    users.add(new UserDaoImpl().findEntityById(resultSet1.getLong("UserID")));
 
-            vacancy.setUser(users);
+                vacancy.setUser(users);
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

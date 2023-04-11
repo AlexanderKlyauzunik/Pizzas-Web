@@ -92,31 +92,33 @@ public class OrderDaoImpl extends Util implements OrderDao {
                 "\tFROM public.\"Pizza_Order\" WHERE \"OrderID\" = ?;";
         try {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
-            preparedStatement.setLong(1,id);
+            preparedStatement.setLong(1, id);
             preparedStatement1 = connection.prepareStatement(SQL_INNER_1);
-            preparedStatement1.setLong(1,id);
+            preparedStatement1.setLong(1, id);
             preparedStatement2 = connection.prepareStatement(SQL_INNER_2);
-            preparedStatement2.setLong(1,id);
+            preparedStatement2.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSet resultSet1 = preparedStatement1.executeQuery();
             ResultSet resultSet2 = preparedStatement2.executeQuery();
 
-            order.setId(resultSet.getLong("OrderID"));
-            order.setStatus(resultSet.getBoolean("Status"));
-            order.setDeliveryDate(resultSet.getDate("DeliveryDate"));
-            order.setPaymentMethod(resultSet.getString("PaymentMethod"));
+            while (resultSet.next()) {
+                order.setId(resultSet.getLong("OrderID"));
+                order.setStatus(resultSet.getBoolean("Status"));
+                order.setDeliveryDate(resultSet.getDate("DeliveryDate"));
+                order.setPaymentMethod(resultSet.getString("PaymentMethod"));
 
-            ArrayList<Drink> drinks = new ArrayList<>();
-            ArrayList<Pizza> pizzas = new ArrayList<>();
+                ArrayList<Drink> drinks = new ArrayList<>();
+                ArrayList<Pizza> pizzas = new ArrayList<>();
 
-            while (resultSet2.next())
-                pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaId")));
+                while (resultSet2.next())
+                    pizzas.add(new PizzaDaoImpl().findEntityById(resultSet2.getLong("PizzaId")));
 
-            while (resultSet1.next())
-                drinks.add(new DrinkDaoImpl().findEntityById(resultSet1.getLong("DrinkID")));
+                while (resultSet1.next())
+                    drinks.add(new DrinkDaoImpl().findEntityById(resultSet1.getLong("DrinkID")));
 
-            order.setDrinks(drinks);
-            order.setPizzas(pizzas);
+                order.setDrinks(drinks);
+                order.setPizzas(pizzas);
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

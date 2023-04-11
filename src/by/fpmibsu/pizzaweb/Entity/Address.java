@@ -5,13 +5,12 @@ import java.util.Objects;
 public class Address extends Entity{
     private String street;
     private Integer houseNumber;
-
     private Integer entrance;
-    private String flatNumber;
+    private Integer flatNumber;
 
     public Address() {}
 
-    public Address(Long addressID, String street, Integer houseNumber, Integer entrance, String flatNumber) {
+    public Address(Long addressID, String street, Integer houseNumber, Integer entrance, Integer flatNumber) {
         super(addressID);
         this.street = street;
         this.houseNumber = houseNumber;
@@ -51,11 +50,11 @@ public class Address extends Entity{
         this.entrance = entrance;
     }
 
-    public String getFlatNumber() {
+    public Integer getFlatNumber() {
         return this.flatNumber;
     }
 
-    public void setFlatNumber(String flatNumber) {
+    public void setFlatNumber(Integer flatNumber) {
         this.flatNumber = flatNumber;
     }
 
@@ -65,6 +64,11 @@ public class Address extends Entity{
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
         return Objects.equals(street, address.street) && Objects.equals(houseNumber, address.houseNumber) && Objects.equals(entrance, address.entrance) && Objects.equals(flatNumber, address.flatNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, houseNumber, entrance, flatNumber);
     }
 
     @Override

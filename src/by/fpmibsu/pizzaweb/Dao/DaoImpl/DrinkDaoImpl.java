@@ -52,12 +52,13 @@ public class DrinkDaoImpl extends Util implements DrinkDao {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            drink.setId(resultSet.getLong("DrinkID"));
-            drink.setName(resultSet.getString("Name"));
-            drink.setCapacity(resultSet.getDouble("Capacity"));
-            drink.setPrice(resultSet.getDouble("Price"));
 
-            preparedStatement.executeUpdate();
+            while (resultSet.next()) {
+                drink.setId(resultSet.getLong("DrinkID"));
+                drink.setName(resultSet.getString("Name"));
+                drink.setCapacity(resultSet.getDouble("Capacity"));
+                drink.setPrice(resultSet.getDouble("Price"));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

@@ -54,15 +54,15 @@ public class PizzaDaoImpl extends Util implements PizzaDao {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            pizza.setId(resultSet.getLong("PizzaID"));
-            pizza.setName(resultSet.getString("Name"));
-            pizza.setIngredients(resultSet.getString("Ingredient"));
-            pizza.setDoughType(resultSet.getBoolean("TypeDrough"));
-            pizza.setWeight(resultSet.getDouble("BasicWeight"));
-            pizza.setWeight(resultSet.getDouble("Price"));
-            pizza.setSize(resultSet.getBoolean("Size"));
-
-            preparedStatement.executeUpdate();
+            while (resultSet.next()) {
+                pizza.setId(resultSet.getLong("PizzaID"));
+                pizza.setName(resultSet.getString("Name"));
+                pizza.setIngredients(resultSet.getString("Ingredients"));
+                pizza.setDoughType(resultSet.getBoolean("TypeDrough"));
+                pizza.setWeight(resultSet.getDouble("BasicWeight"));
+                pizza.setWeight(resultSet.getDouble("Price"));
+                pizza.setSize(resultSet.getBoolean("Size"));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

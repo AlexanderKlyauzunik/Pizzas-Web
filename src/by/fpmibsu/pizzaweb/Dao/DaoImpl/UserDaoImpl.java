@@ -54,14 +54,17 @@ public class UserDaoImpl extends Util implements UserDao {
             preparedStatement = connection.prepareStatement(SQL_SELECT_BY_ID);
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
-            user.setUserId(resultSet.getLong("UserID"));
-            user.setRole(new RoleDaoImpl().findEntityById(resultSet.getLong("Role_id")));
-            user.setFirstName_lastName(resultSet.getString("First_SecondName"));
-            user.setPassword(resultSet.getString("Password"));
-            user.setEmail(resultSet.getString("Email"));
-            user.setTelephone(resultSet.getString("Phone_number"));
-            user.setAddresses(new AddressDaoImpl().findEntityById(resultSet.getLong("Address_id")));
-            user.setOrder(new OrderDaoImpl().findEntityById(resultSet.getLong("Order_id")));
+
+            while (resultSet.next()) {
+                user.setUserId(resultSet.getLong("UserID"));
+                user.setRole(new RoleDaoImpl().findEntityById(resultSet.getLong("Role_id")));
+                user.setFirstName_lastName(resultSet.getString("First_SecondName"));
+                user.setPassword(resultSet.getString("Password"));
+                user.setEmail(resultSet.getString("Email"));
+                user.setTelephone(resultSet.getString("Phone_number"));
+                user.setAddresses(new AddressDaoImpl().findEntityById(resultSet.getLong("Address_id")));
+                user.setOrder(new OrderDaoImpl().findEntityById(resultSet.getLong("Order_id")));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
